@@ -1,26 +1,63 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --font-syne: var(--f-syne), ui-sans-serif, system-ui, sans-serif;
+  --font-jakarta: var(--f-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-newsreader: var(--f-newsreader), ui-serif, Georgia, serif;
+  --font-spacemono: var(--f-spacemono), ui-monospace, monospace;
+
+  --font-oranienbaum: var(--f-oranienbaum), ui-serif, Georgia, serif;
+  --font-barlow: var(--f-barlow), ui-sans-serif, system-ui, sans-serif;
+  --font-instrument: var(--f-instrument), ui-serif, Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  --color-cream: #fff9eb;
+  --color-cream-deep: #eadfc9;
+  --color-wood: #8b5e3c;
+  --color-terracotta: #c4562f;
+  --color-charcoal: #1f1d1b;
+  --color-sticky: #f2d46b;
+
+  --color-lab: #f6f8f5;
+  --color-lab-ink: #10231d;
+  --color-lab-accent: #2f7d5b;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+
+  --animate-cue: cue 2.2s var(--ease-in-out-expo) infinite;
+  @keyframes cue {
+    0%   { transform: scaleY(0); transform-origin: top; }
+    50%  { transform: scaleY(1); transform-origin: top; }
+    50.01% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html { @apply bg-cream; }
+  body { @apply font-sans text-charcoal antialiased; }
+  ::selection { @apply bg-terracotta text-cream; }
 }
+
+/* Lenis essentials */
+html.lenis, html.lenis body { height: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* While the preloader runs */
+html.is-loading { overflow: hidden; }
+html.is-loading main { visibility: hidden; }
