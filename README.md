@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dot Flavr | Food Consultancy & Innovation Studio
 
-## Getting Started
+> Precision food product development, formulation optimization, shelf-life stability, and industrial scale-up—alongside **The Food Table** community and learning lab.
 
-First, run the development server:
+[![Next.js](https://img.shields.io/badge/Next.js-14+-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38BDF8?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![GSAP](https://img.shields.io/badge/GSAP-ScrollTrigger-88CE02?style=flat-square&logo=greensock)](https://greensock.com/scrolltrigger/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlink/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🍊 Brand Identity & Color System
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Dot Flavr’s visual identity moves away from generic AI aesthetics, emphasizing an editorial, technical, and human-centric food science consultancy:
+* **Warm Cream Canvas:** `#fff9eb`
+* **Deep Burgundy:** `#800020`
+* **Vibrant Tangerine:** `#ff6f3c`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🚀 Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+* **Framework:** Next.js (App Router)
+* **Styling:** Tailwind CSS
+* **Animations:** GSAP (ScrollTrigger & MatchMedia)
+* **Icons & Assets:** Lucide React & Optimized Image Assets
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📂 Project Architecture
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```tree
+├── app/
+│   ├── layout.tsx         # Root layout with font configurations
+│   ├── page.tsx           # Main homepage incorporating all consultancy sections
+│   └── globals.css        # Tailwind directives & custom scrollbar overrides
+├── components/
+│   ├── Hero.tsx           # Immersive LCP-optimized hero section
+│   ├── MethodologyTransition.tsx # Editorial transition bridge
+│   ├── Process.tsx        # Interactive pinned rail & batch tracking workflow
+│   ├── Experience.tsx     # Scientific capability & real trials pillars
+│   ├── StatsPinSection.tsx# Pinned metric counter reel
+│   ├── BrandsWall.tsx     # Staggered collaborator wall
+│   ├── FoodTablePage.tsx  # Community labs, cohorts & immersion programmes
+│   ├── Faq.tsx            # Sticky desktop FAQ accordion
+│   ├── ContactForm.tsx    # Scrollable multi-audience inquiry form
+│   └── CtaFooter.tsx      # Cinematic footer & ecosystem links
+└── public/
+    └── images/            # Product photography and partner assets
