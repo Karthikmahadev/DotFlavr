@@ -9,11 +9,17 @@ import {
   type ReactNode,
 } from "react";
 import { motion, useAnimate, useReducedMotion } from "motion/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import ContactForm from "../components/home/Contact";
 import Faq from "../components/home/Faq";
 import { useLenis } from "@/app/lib/scroll";
 import { usePreloaderDone } from "@/app/lib/loader-store";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const wipe = [0.76, 0, 0.24, 1] as const;
@@ -23,12 +29,7 @@ const wipe = [0.76, 0, 0.24, 1] as const;
 const StageCtx = createContext({ revealed: false, reduced: false });
 const useStage = () => useContext(StageCtx);
 
-/* ─────────────────────────── the stage ───────────────────────────
- *  1. "Let's talk." rises on a dark screen
- *  2. a single orange dot pops in beneath it
- *  3. the dot floods the whole screen
- *  4. the orange curtain lifts away while the page rises underneath
- * ──────────────────────────────────────────────────────────────── */
+/* ─────────────────────────── the stage ─────────────────────────── */
 
 function Stage({ children }: { children: ReactNode }) {
   const lenis = useLenis();
@@ -58,7 +59,7 @@ function Stage({ children }: { children: ReactNode }) {
     (async () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
-      const flood = (Math.hypot(w, h) / 20) * 1.08; // the dot is 20px wide
+      const flood = (Math.hypot(w, h) / 20) * 1.08;
 
       animate(".ci-label", { y: "0%" }, { duration: 0.9, ease });
       await animate(".ci-dot", { scale: 1 }, { delay: 0.35, duration: 0.7, ease });
@@ -81,6 +82,9 @@ function Stage({ children }: { children: ReactNode }) {
 
       lenisRef.current?.start();
       setPlaying(false);
+      
+      // Force refresh scroll triggers after reveal completes
+      ScrollTrigger.refresh();
     })();
 
     return () => {
@@ -90,6 +94,16 @@ function Stage({ children }: { children: ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ready, reduced]);
 
+  useEffect(() => {
+    if (!revealed) return;
+    const t1 = setTimeout(() => ScrollTrigger.refresh(), 200);
+    const t2 = setTimeout(() => ScrollTrigger.refresh(), 800);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [revealed]);
+
   return (
     <StageCtx.Provider value={{ revealed, reduced }}>
       {children}
@@ -98,7 +112,7 @@ function Stage({ children }: { children: ReactNode }) {
         <div
           ref={scope}
           aria-hidden
-          className="fixed inset-0 z-[70] bg-[#0e0a09]"
+          className="pointer-events-none fixed inset-0 z-[70] bg-[#0e0a09]"
           style={{ clipPath: "inset(0% 0% 0% 0%)" }}
         >
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -121,52 +135,7 @@ function Stage({ children }: { children: ReactNode }) {
   );
 }
 
-/* ─────────────────────────── reveal wrapper ───────────────────────────
- *  Content is unmasked from the top down while it rises into place.
- *  `inView` waits for scroll instead of waiting for the intro.
- * ───────────────────────────────────────────────────────────────────── */
-
-const HIDDEN = { clipPath: "inset(0% 0% 100% 0%)", y: 90 };
-// negative insets leave room for shadows and overflow once revealed
-const SHOWN = { clipPath: "inset(-6% -6% -6% -6%)", y: 0 };
-
-function Reveal({
-  children,
-  inView = false,
-  delay = 0,
-}: {
-  children: ReactNode;
-  inView?: boolean;
-  delay?: number;
-}) {
-  const { revealed, reduced } = useStage();
-  if (reduced) return <>{children}</>;
-
-  const transition = { duration: 1.2, ease, delay };
-
-  return inView ? (
-    <motion.div
-      initial={HIDDEN}
-      whileInView={SHOWN}
-      viewport={{ once: true, amount: 0.12 }}
-      transition={transition}
-    >
-      {children}
-    </motion.div>
-  ) : (
-    <motion.div
-      initial={HIDDEN}
-      animate={revealed ? SHOWN : HIDDEN}
-      transition={{ ...transition, delay: delay + 0.1 }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-/* ─────────────────────────── divider ───────────────────────────
- *  A hairline draws itself while an orange dot rides its tip.
- * ─────────────────────────────────────────────────────────────── */
+/* ─────────────────────────── divider ─────────────────────────── */
 
 function DotRule() {
   const { reduced } = useStage();
@@ -198,15 +167,13 @@ function DotRule() {
 export default function Contact() {
   return (
     <Stage>
-      <Reveal>
-        <ContactForm />
-      </Reveal>
+      {/* Direct component rendering without clip-path wrapper locking visibility */}
+      <ContactForm />
 
       <DotRule />
 
-      <Reveal inView>
-        <Faq />
-      </Reveal>
+      {/* Faq triggers its own ScrollTrigger animations correctly now */}
+      <Faq />
     </Stage>
   );
 }

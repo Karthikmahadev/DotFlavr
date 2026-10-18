@@ -59,8 +59,8 @@ const AUDIENCES = [
 function Label({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   return (
     <p
-      className={`flex items-center gap-3 font-spacemono text-[11px] uppercase tracking-[0.22em] ${
-        dark ? "text-[#ffb08a]" : "text-[#2a0610]/65"
+      className={`flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] ${
+        dark ? "text-[#ffb08a]" : "text-[#800020]/75"
       }`}
     >
       <span className="h-1.5 w-1.5 rounded-full bg-[#ff6f3c]" />
@@ -118,17 +118,17 @@ function Print({
   sizes: string;
 }) {
   return (
-    <figure className={`js-print relative bg-white p-2.5 pb-3 shadow-[0_30px_60px_-28px_rgba(42,6,16,0.5)] sm:p-3 ${className}`}>
+    <figure className={`js-print relative bg-white p-2.5 pb-3 shadow-[0_30px_60px_-28px_rgba(128,0,32,0.35)] sm:p-3 ${className}`}>
       <span
         aria-hidden
-        className="absolute left-1/2 top-0 z-10 h-6 w-24 -translate-x-1/2 -translate-y-1/2 rotate-[-2deg] bg-[#ffb08a]/60"
+        className="absolute left-1/2 top-0 z-10 h-6 w-24 -translate-x-1/2 -translate-y-1/2 rotate-[-2deg] bg-[#ffb08a]/60 shadow-sm"
       />
-      <div className={`relative overflow-hidden bg-[#3b0c18] ${ratio}`}>
+      <div className={`relative overflow-hidden bg-[#800020] ${ratio}`}>
         <Image src={src} alt={alt} fill priority={priority} sizes={sizes} className="object-cover" />
       </div>
       <figcaption className="mt-3 flex items-start justify-between gap-4 px-0.5">
-        <span className="font-newsreader text-[1.02rem] italic leading-snug text-[#2a0610]">{title}</span>
-        <span className="shrink-0 pt-1 font-spacemono text-[10px] uppercase tracking-[0.18em] text-[#2a0610]/45">
+        <span className="font-serif text-[1.025rem] italic leading-snug text-[#800020]">{title}</span>
+        <span className="shrink-0 pt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[#800020]/50">
           {fig}
           {note ? ` · ${note}` : ""}
         </span>
@@ -147,42 +147,26 @@ export default function FoodTablePage() {
       const mm = gsap.matchMedia();
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        // Generic reveals
-        gsap.utils.toArray<HTMLElement>(".js-rv").forEach((el) => {
-          gsap.fromTo(
-            el,
-            { y: 28, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 1,
-              ease: "expo.out",
-              clearProps: "all",
-              scrollTrigger: { trigger: el, start: "top 90%", once: true },
-            }
-          );
-        });
-
         // Hero headline lines rise through a mask.
         gsap.fromTo(
           ".js-h-line",
           { yPercent: 110 },
-          { yPercent: 0, duration: 1.4, ease: "expo.out", stagger: 0.12, delay: 0.1 }
+          { yPercent: 0, duration: 1.3, ease: "power3.out", stagger: 0.1, delay: 0.1 }
         );
 
         // Prints wipe open.
         gsap.utils.toArray<HTMLElement>(".js-print").forEach((el, i) => {
           gsap.fromTo(
             el,
-            { clipPath: "inset(0 0 100% 0)", y: 30 },
+            { clipPath: "inset(0 0 100% 0)", y: 25 },
             {
               clipPath: "inset(0 0 0% 0)",
               y: 0,
-              duration: 1.2,
-              ease: "expo.out",
-              delay: i * 0.08,
+              duration: 1.1,
+              ease: "power2.out",
+              delay: i * 0.06,
               clearProps: "clipPath,y",
-              scrollTrigger: { trigger: el, start: "top 90%", once: true },
+              scrollTrigger: { trigger: el, start: "top 95%", once: true },
             }
           );
         });
@@ -195,36 +179,9 @@ export default function FoodTablePage() {
             scaleX: 1,
             ease: "none",
             transformOrigin: "left",
-            scrollTrigger: { trigger: ".js-phases", start: "top 80%", end: "bottom 60%", scrub: true },
+            scrollTrigger: { trigger: ".js-phases", start: "top 90%", end: "bottom 50%", scrub: true },
           }
         );
-        gsap.from(".js-p-node", {
-          scale: 0,
-          duration: 0.6,
-          ease: "back.out(2.4)",
-          stagger: 0.18,
-          scrollTrigger: { trigger: ".js-phases", start: "top 80%", once: true },
-        });
-        gsap.from(".js-p-item", {
-          autoAlpha: 0,
-          y: 24,
-          duration: 0.9,
-          ease: "expo.out",
-          stagger: 0.12,
-          clearProps: "all",
-          scrollTrigger: { trigger: ".js-phases", start: "top 82%", once: true },
-        });
-
-        // Cohort cells arrive in a loose order.
-        gsap.from(".js-cell", {
-          autoAlpha: 0,
-          y: 24,
-          duration: 0.9,
-          ease: "expo.out",
-          stagger: 0.1,
-          clearProps: "all",
-          scrollTrigger: { trigger: ".js-cells", start: "top 88%", once: true },
-        });
 
         // Timeline rail draws on programme 02.
         gsap.fromTo(
@@ -234,12 +191,12 @@ export default function FoodTablePage() {
             scaleY: 1,
             transformOrigin: "top",
             ease: "none",
-            scrollTrigger: { trigger: ".js-rail-wrap", start: "top 75%", end: "bottom 65%", scrub: true },
+            scrollTrigger: { trigger: ".js-rail-wrap", start: "top 85%", end: "bottom 70%", scrub: true },
           }
         );
 
         // Stamps turn slowly.
-        gsap.to(".js-stamp", { rotation: 360, duration: 26, ease: "none", repeat: -1 });
+        gsap.to(".js-stamp", { rotation: 360, duration: 24, ease: "none", repeat: -1 });
       });
 
       ScrollTrigger.refresh();
@@ -251,49 +208,49 @@ export default function FoodTablePage() {
   return (
     <div
       ref={root}
-      className="w-full overflow-x-clip bg-[#fff9eb] text-[#2a0610] selection:bg-[#ff6f3c] selection:text-white"
+      className="w-full overflow-x-clip bg-[#fff9eb] text-[#800020] selection:bg-[#ff6f3c] selection:text-white"
     >
       {/* ──────────────── 1. HERO ──────────────── */}
       <section className="relative px-6 pb-24 pt-28 md:px-12 md:pt-36 lg:px-16">
         <div className="mx-auto max-w-[1240px]">
           <Label>Dot Flavr community &amp; learning lab</Label>
 
-          <h1 className="mt-8 font-display text-[clamp(3.2rem,9.4vw,9rem)] font-medium leading-[0.88] tracking-[-0.05em]">
+          <h1 className="mt-8 font-serif text-[clamp(3rem,8.8vw,8.5rem)] font-normal leading-[0.9] tracking-[-0.04em]">
             <span className="block overflow-hidden py-[0.05em]">
               <span className="js-h-line block">Where the food</span>
             </span>
             <span className="block overflow-hidden py-[0.05em]">
               <span className="js-h-line block">
-                industry <em className="text-[#ff6f3c]">comes together.</em>
+                industry <em className="italic text-[#ff6f3c]">comes together.</em>
               </span>
             </span>
           </h1>
 
           <div className="mt-12 grid gap-10 lg:grid-cols-12">
-            <p className="js-rv font-newsreader text-[clamp(1.2rem,1.7vw,1.6rem)] leading-[1.4] text-[#2a0610]/85 lg:col-span-7">
+            <p className="font-serif text-[clamp(1.15rem,1.6vw,1.5rem)] leading-[1.5] text-[#800020]/80 lg:col-span-7">
               Bridging the gap between food science theory, benchtop craft, and commercial reality.
               An open collaborative table for aspiring food technologists, product developers,
               ambitious founders, and industry leaders.
             </p>
-            <div className="js-rv flex flex-col items-start gap-5 lg:col-span-5 lg:items-end lg:justify-end">
+            <div className="flex flex-col items-start gap-4 lg:col-span-5 lg:items-end lg:justify-end">
               <Link
                 href="#programmes"
-                className="group inline-flex h-12 items-center gap-3 bg-[#2a0610] px-7 text-[14px] font-semibold text-[#fff9eb] transition-colors duration-300 hover:bg-[#ff6f3c]"
+                className="group inline-flex h-12 items-center gap-2.5 rounded-full bg-[#800020] px-7 text-[13px] font-semibold text-[#fff9eb] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#ff6f3c] hover:shadow-lg"
               >
                 Explore programmes
-                <span aria-hidden className="transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
+                <span aria-hidden className="transition-transform duration-300 group-hover:translate-y-0.5">&darr;</span>
               </Link>
               <Link
                 href="#collaborate"
-                className="text-[14px] underline decoration-[#2a0610]/30 underline-offset-[6px] transition-colors hover:decoration-[#ff6f3c]"
+                className="text-[13px] font-medium text-[#800020] underline decoration-[#ff6f3c]/45 underline-offset-[6px] transition-colors hover:text-[#ff6f3c]"
               >
-                For colleges &amp; industry →
+                For colleges &amp; industry &rarr;
               </Link>
             </div>
           </div>
 
           {/* Pinned prints */}
-          <div className="mt-20 items-start grid gap-10 md:grid-cols-12 md:gap-8 lg:gap-12">
+          <div className="mt-20 grid items-start gap-10 md:grid-cols-12 md:gap-8 lg:gap-12">
             <Print
               className="md:col-span-7 lg:-rotate-[1deg]"
               src="/images/work/01.jpg"
@@ -311,7 +268,7 @@ export default function FoodTablePage() {
                 src="/images/work/02.jpg"
                 alt="Citrus and fibre pectin trials"
                 fig="Fig. 02"
-                title="Citrus & fibre pectin cross-linking."
+                title="Citrus &amp; fibre pectin cross-linking."
                 ratio="aspect-[16/10]"
                 sizes="(min-width:1024px) 480px, 100vw"
               />
@@ -320,7 +277,7 @@ export default function FoodTablePage() {
                 src="/images/work/03.jpg"
                 alt="Sensory evaluation panels"
                 fig="Fig. 03"
-                title="Target sweetness & texture curve."
+                title="Target sweetness &amp; texture curve."
                 ratio="aspect-[16/10]"
                 sizes="(min-width:1024px) 480px, 100vw"
               />
@@ -330,15 +287,15 @@ export default function FoodTablePage() {
       </section>
 
       {/* ──────────────── 2. CONTEXT & 4-PHASE PROCESS ──────────────── */}
-      <section className="border-t border-[#2a0610]/15 px-6 py-24 md:px-12 md:py-32 lg:px-16">
+      <section className="border-t border-[#800020]/15 px-6 py-24 md:px-12 md:py-32 lg:px-16">
         <div className="mx-auto max-w-[1240px]">
-          <div className="js-rv max-w-3xl">
+          <div className="max-w-3xl">
             <Label>01 / The context &amp; gap</Label>
-            <h2 className="mt-5 font-display text-[clamp(2.4rem,4.8vw,4.4rem)] font-medium leading-[0.98] tracking-[-0.04em]">
+            <h2 className="mt-4 font-serif text-[clamp(2.4rem,4.6vw,4.2rem)] font-normal leading-[1.05] tracking-[-0.03em]">
               Bridging the gap between food science theory and{" "}
-              <em className="text-[#ff6f3c]">real-world commercial scale.</em>
+              <em className="italic text-[#ff6f3c]">real-world commercial scale.</em>
             </h2>
-            <p className="mt-7 max-w-2xl text-[16px] leading-[1.7] text-[#2a0610]/75">
+            <p className="mt-6 text-[15px] leading-[1.7] text-[#800020]/75 sm:text-[16px]">
               Before products succeed on supermarket shelves or cold-chain distribution, they
               encounter a silent failure zone. University programmes emphasise textbook equations
               and Petri dishes; domestic kitchens produce delicious samples that separate inside
@@ -348,27 +305,27 @@ export default function FoodTablePage() {
           </div>
 
           <div className="js-phases relative mt-20 grid gap-x-8 lg:grid-cols-4">
-            <span aria-hidden className="absolute left-0 right-0 top-0 hidden h-px bg-[#2a0610]/15 lg:block" />
+            <span aria-hidden className="absolute left-0 right-0 top-0 hidden h-px bg-[#800020]/20 lg:block" />
             <span aria-hidden className="js-p-line absolute left-0 right-0 top-0 hidden h-px bg-[#ff6f3c] lg:block" />
 
             {PHASES.map((p) => (
               <article
                 key={p.num}
-                className="js-p-item relative border-l border-[#2a0610]/15 pb-12 pl-7 last:pb-0 lg:border-l-0 lg:pb-0 lg:pl-0 lg:pt-10"
+                className="relative border-l border-[#800020]/20 pb-12 pl-7 last:pb-0 lg:border-l-0 lg:pb-0 lg:pl-0 lg:pt-10"
               >
                 <span
                   aria-hidden
-                  className="js-p-node absolute -left-[6px] top-1 h-3 w-3 rounded-full bg-[#ff6f3c] ring-4 ring-[#fff9eb] lg:left-0 lg:top-0 lg:-translate-y-1/2"
+                  className="absolute -left-[6px] top-1 h-3 w-3 rounded-full bg-[#ff6f3c] ring-4 ring-[#fff9eb] lg:left-0 lg:top-0 lg:-translate-y-1/2"
                 />
-                <p className="font-display text-[clamp(3.4rem,5vw,5rem)] font-medium leading-none tracking-[-0.05em] text-transparent [-webkit-text-stroke:1px_rgba(42,6,16,0.35)]">
+                <p className="font-serif text-[clamp(3.2rem,4.6vw,4.6rem)] font-light leading-none tracking-[-0.05em] text-[#800020]/20">
                   {p.num}
                 </p>
-                <h3 className="mt-4 font-display text-[1.9rem] font-medium leading-none tracking-[-0.03em]">
+                <h3 className="mt-4 font-serif text-[1.8rem] font-normal leading-tight tracking-[-0.02em] text-[#800020]">
                   {p.title}
                 </h3>
-                <p className="mt-3 text-[14px] leading-[1.65] text-[#2a0610]/70">{p.desc}</p>
-                <p className="mt-5 border-t border-[#2a0610]/15 pt-3 font-spacemono text-[10px] uppercase tracking-[0.16em] text-[#2a0610]/55">
-                  Focus · <span className="text-[#ff6f3c]">{p.focus}</span>
+                <p className="mt-3 text-[13.5px] leading-[1.65] text-[#800020]/75">{p.desc}</p>
+                <p className="mt-5 border-t border-[#800020]/15 pt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[#800020]/60">
+                  Focus &bull; <span className="text-[#ff6f3c]">{p.focus}</span>
                 </p>
               </article>
             ))}
@@ -377,53 +334,53 @@ export default function FoodTablePage() {
       </section>
 
       {/* ──────────────── 3. FOUR COHORTS ──────────────── */}
-      <section className="border-t border-[#2a0610]/15 px-6 py-24 md:px-12 md:py-32 lg:px-16">
+      <section className="border-t border-[#800020]/15 px-6 py-24 md:px-12 md:py-32 lg:px-16">
         <div className="mx-auto max-w-[1240px]">
-          <div className="js-rv flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
               <Label>02 / Community cohorts</Label>
-              <h2 className="mt-5 font-display text-[clamp(2.6rem,5.4vw,5rem)] font-medium leading-[0.94] tracking-[-0.045em]">
+              <h2 className="mt-4 font-serif text-[clamp(2.5rem,5vw,4.6rem)] font-normal leading-[1.05] tracking-[-0.03em]">
                 Four cohorts.
                 <br />
-                <em className="text-[#ff6f3c]">One unified bench.</em>
+                <em className="italic text-[#ff6f3c]">One unified bench.</em>
               </h2>
             </div>
-            <p className="max-w-[22rem] text-[15px] leading-[1.65] text-[#2a0610]/70 md:pb-2">
+            <p className="max-w-[22rem] text-[15px] leading-[1.65] text-[#800020]/75 md:pb-2">
               Designed for those who want to turn conceptual culinary ideas into stable, safe, and
               commercialisable packaged goods.
             </p>
           </div>
 
-          <div className="js-cells mt-16 grid border-l border-t border-[#2a0610]/20 md:grid-cols-2">
+          <div className="mt-16 grid border-l border-t border-[#800020]/20 md:grid-cols-2">
             {COHORTS.map((c, i) => (
               <article
                 key={c.tag}
-                className="js-cell group relative flex flex-col justify-between overflow-hidden border-b border-r border-[#2a0610]/20 p-7 transition-colors duration-500 hover:bg-[#2a0610] hover:text-[#fff9eb] sm:p-10"
+                className="group relative flex flex-col justify-between overflow-hidden border-b border-r border-[#800020]/20 p-7 transition-colors duration-500 hover:bg-[#800020] hover:text-[#fff9eb] sm:p-10"
               >
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -right-2 -top-6 font-display text-[9rem] font-medium leading-none tracking-[-0.06em] text-[#2a0610]/[0.05] transition-colors duration-500 group-hover:text-[#ff6f3c]/20"
+                  className="pointer-events-none absolute -right-2 -top-6 font-serif text-[9rem] font-light leading-none tracking-[-0.06em] text-[#800020]/[0.05] transition-colors duration-500 group-hover:text-[#ff6f3c]/20"
                 >
                   {String(i + 1).padStart(2, "0")}
                 </span>
 
                 <div className="relative">
-                  <p className="flex items-center justify-between gap-4 font-spacemono text-[10px] uppercase tracking-[0.2em]">
+                  <p className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.2em]">
                     <span className="text-[#ff6f3c]">{c.tag}</span>
-                    <span className="text-[#2a0610]/50 transition-colors group-hover:text-[#fff9eb]/55">
+                    <span className="text-[#800020]/55 transition-colors group-hover:text-[#fff9eb]/60">
                       {c.category}
                     </span>
                   </p>
-                  <h3 className="mt-6 max-w-[22rem] font-display text-[clamp(1.7rem,2.5vw,2.3rem)] font-medium leading-[1.02] tracking-[-0.035em]">
+                  <h3 className="mt-5 max-w-[22rem] font-serif text-[clamp(1.7rem,2.4vw,2.2rem)] font-normal leading-[1.05] tracking-[-0.02em]">
                     {c.title}
                   </h3>
-                  <p className="mt-4 max-w-[30rem] text-[14px] leading-[1.7] text-[#2a0610]/70 transition-colors group-hover:text-[#fff9eb]/75">
+                  <p className="mt-4 max-w-[30rem] text-[14px] leading-[1.7] text-[#800020]/75 transition-colors group-hover:text-[#fff9eb]/80">
                     {c.desc}
                   </p>
                 </div>
 
                 <div className="relative mt-8 flex items-center justify-between gap-4 border-t border-current/15 pt-4">
-                  <span className="font-newsreader text-[1rem] italic text-[#2a0610]/65 transition-colors group-hover:text-[#ffb08a]">
+                  <span className="font-serif text-[1rem] italic text-[#800020]/70 transition-colors group-hover:text-[#ffb08a]">
                     {c.highlight}
                   </span>
                   <Link
@@ -431,7 +388,7 @@ export default function FoodTablePage() {
                     className="inline-flex shrink-0 items-center gap-2 text-[13px] font-semibold outline-none transition-colors group-hover:text-[#ff6f3c] focus-visible:text-[#ff6f3c]"
                   >
                     Learn more
-                    <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1.5">→</span>
+                    <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
                   </Link>
                 </div>
               </article>
@@ -442,33 +399,33 @@ export default function FoodTablePage() {
 
       {/* ──────────────── 4. PROGRAMME 01 ──────────────── */}
       <section id="programmes" className="px-6 py-16 md:px-12 lg:px-16">
-        <div className="js-rv relative mx-auto max-w-[1240px] bg-[#f5e8c8] p-3 shadow-[0_40px_80px_-40px_rgba(42,6,16,0.35)] sm:p-4">
+        <div className="relative mx-auto max-w-[1240px] rounded-3xl bg-[#f7eed9] p-4 shadow-xl ring-1 ring-[#800020]/15 sm:p-6 md:p-8">
           <Stamp
             id="stamp-p1"
             text="LIMITED SEATS • 8–10 PER BATCH • LIMITED SEATS • 8–10 PER BATCH •"
             className="absolute -top-9 right-6 z-10 h-24 w-24 sm:right-12 sm:h-28 sm:w-28"
           />
 
-          <div className="border border-dashed border-[#2a0610]/35 p-6 sm:p-10 md:p-14">
+          <div className="rounded-2xl border border-dashed border-[#800020]/30 p-6 sm:p-10 md:p-12">
             <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
               <div className="lg:col-span-7">
-                <Label>Programme 01 · Foundational immersion</Label>
-                <h2 className="mt-5 font-display text-[clamp(2.3rem,4.4vw,4rem)] font-medium leading-[0.98] tracking-[-0.04em]">
+                <Label>Programme 01 &bull; Foundational immersion</Label>
+                <h2 className="mt-4 font-serif text-[clamp(2.3rem,4.2vw,3.8rem)] font-normal leading-[1.05] tracking-[-0.03em]">
                   Explore Series:
                   <br />
-                  <em className="text-[#ff6f3c]">Food tech &amp; formulation</em> fundamentals
+                  <em className="italic text-[#ff6f3c]">Food tech &amp; formulation</em> fundamentals
                 </h2>
-                <p className="mt-6 max-w-xl text-[16px] leading-[1.7] text-[#2a0610]/75">
+                <p className="mt-6 max-w-xl text-[15px] leading-[1.7] text-[#800020]/80 sm:text-[16px]">
                   An intensive one-month hybrid immersion designed to build solid muscle memory in
                   recipe scale-up, water activity thresholds, clean-label binders, and sensory
                   evaluation matrices.
                 </p>
 
-                <dl className="mt-10 grid border-t border-[#2a0610]/25 sm:grid-cols-2">
+                <dl className="mt-10 grid border-t border-[#800020]/20 sm:grid-cols-2">
                   {SPECS_1.map(([k, v]) => (
-                    <div key={k} className="flex items-baseline justify-between gap-4 border-b border-[#2a0610]/25 py-3.5 sm:odd:pr-6 sm:even:pl-6 sm:even:border-l sm:even:border-[#2a0610]/25">
-                      <dt className="font-spacemono text-[10px] uppercase tracking-[0.18em] text-[#2a0610]/55">{k}</dt>
-                      <dd className="text-right font-display text-[1.1rem] font-medium tracking-[-0.02em]">{v}</dd>
+                    <div key={k} className="flex items-baseline justify-between gap-4 border-b border-[#800020]/20 py-3.5 sm:odd:pr-6 sm:even:pl-6 sm:even:border-l sm:even:border-[#800020]/20">
+                      <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#800020]/60">{k}</dt>
+                      <dd className="text-right font-serif text-[1.15rem] font-medium tracking-[-0.02em]">{v}</dd>
                     </div>
                   ))}
                 </dl>
@@ -476,45 +433,45 @@ export default function FoodTablePage() {
                 <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
                   <Link
                     href="/#contact"
-                    className="inline-flex h-12 items-center bg-[#2a0610] px-7 text-[14px] font-semibold text-[#fff9eb] transition-colors duration-300 hover:bg-[#ff6f3c]"
+                    className="inline-flex h-12 items-center rounded-full bg-[#800020] px-7 text-[13px] font-semibold text-[#fff9eb] transition-all duration-300 hover:bg-[#ff6f3c]"
                   >
                     Apply for next cohort
                   </Link>
                   <Link
                     href="/#contact"
-                    className="text-[14px] underline decoration-[#2a0610]/30 underline-offset-[6px] transition-colors hover:decoration-[#ff6f3c]"
+                    className="text-[13px] font-medium text-[#800020] underline decoration-[#ff6f3c]/45 underline-offset-[6px] hover:text-[#ff6f3c]"
                   >
-                    View curriculum details →
+                    View curriculum details &rarr;
                   </Link>
                 </div>
               </div>
 
-              <aside className="bg-[#fff9eb] p-7 shadow-[0_20px_50px_-30px_rgba(42,6,16,0.4)] sm:p-8 lg:col-span-5">
+              <aside className="rounded-2xl bg-white p-7 shadow-md ring-1 ring-[#800020]/15 sm:p-8 lg:col-span-5">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="font-spacemono text-[10px] uppercase tracking-[0.2em] text-[#ff6f3c]">Next cohort</p>
-                    <p className="mt-1 font-display text-[1.35rem] font-medium leading-tight tracking-[-0.025em]">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff6f3c]">Next cohort</p>
+                    <p className="mt-1 font-serif text-[1.35rem] font-medium leading-tight tracking-[-0.02em]">
                       Starting the first Saturday of the month
                     </p>
                   </div>
                   <span className="mt-1.5 h-2.5 w-2.5 shrink-0 animate-pulse rounded-full bg-emerald-500" />
                 </div>
 
-                <p className="mt-7 font-newsreader text-[1.05rem] italic text-[#2a0610]/60">In the kit</p>
-                <ul className="mt-3 divide-y divide-[#2a0610]/15 border-y border-[#2a0610]/15">
+                <p className="mt-7 font-serif text-[1.05rem] italic text-[#800020]/65">In the kit</p>
+                <ul className="mt-3 divide-y divide-[#800020]/15 border-y border-[#800020]/15">
                   {KIT.map(([b, rest]) => (
-                    <li key={b} className="flex gap-3 py-4 text-[14px] leading-[1.6] text-[#2a0610]/75">
+                    <li key={b} className="flex gap-3 py-4 text-[14px] leading-[1.6] text-[#800020]/80">
                       <Tick />
                       <span>
-                        <strong className="font-semibold text-[#2a0610]">{b}:</strong> {rest}
+                        <strong className="font-semibold text-[#800020]">{b}:</strong> {rest}
                       </span>
                     </li>
                   ))}
                 </ul>
 
-                <p className="mt-5 flex flex-wrap items-center justify-between gap-2 text-[13px] text-[#2a0610]/70">
+                <p className="mt-5 flex flex-wrap items-center justify-between gap-2 text-[13px] text-[#800020]/75">
                   Scholarships available for students
-                  <Link href="/#contact" className="font-semibold text-[#2a0610] underline decoration-[#ff6f3c] underline-offset-4 hover:text-[#ff6f3c]">
+                  <Link href="/#contact" className="font-semibold text-[#800020] underline decoration-[#ff6f3c] underline-offset-4 hover:text-[#ff6f3c]">
                     Inquire here
                   </Link>
                 </p>
@@ -526,21 +483,21 @@ export default function FoodTablePage() {
 
       {/* ──────────────── 5. PROGRAMME 02 ──────────────── */}
       <section className="px-6 py-16 md:px-12 lg:px-16">
-        <div className="js-rv mx-auto max-w-[1240px] bg-[#2a0610] p-8 text-[#fff9eb] shadow-[0_50px_90px_-40px_rgba(42,6,16,0.7)] sm:p-12 md:p-16">
+        <div className="mx-auto max-w-[1240px] rounded-3xl bg-[#800020] p-8 text-[#fff9eb] shadow-2xl sm:p-12 md:p-16">
           <div className="grid items-start gap-14 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-7">
-              <Label dark>Programme 02 · Intensive benchtop fellowship</Label>
-              <p className="mt-5 inline-block border border-[#ff6f3c]/60 px-3 py-1 font-spacemono text-[10px] uppercase tracking-[0.2em] text-[#ff6f3c]">
+              <Label dark>Programme 02 &bull; Intensive benchtop fellowship</Label>
+              <p className="mt-5 inline-block rounded-full bg-white/10 px-3.5 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[#ffb08a]">
                 Strictly 2–4 fellows per track
               </p>
 
-              <h2 className="mt-6 font-display text-[clamp(2.4rem,4.8vw,4.4rem)] font-medium leading-[0.96] tracking-[-0.045em]">
+              <h2 className="mt-5 font-serif text-[clamp(2.4rem,4.6vw,4.2rem)] font-normal leading-[1.05] tracking-[-0.03em]">
                 Industry immersion:
                 <br />
-                <em className="text-[#ff6f3c]">commercial product development</em>
+                <em className="italic text-[#ff6f3c]">commercial product development</em>
               </h2>
 
-              <p className="mt-6 max-w-xl text-[16px] leading-[1.7] text-[#fff9eb]/75">
+              <p className="mt-6 max-w-xl text-[15px] leading-[1.7] text-[#fff9eb]/80 sm:text-[16px]">
                 A hands-on, high-intensity laboratory fellowship. Co-develop an actual commercial SKU
                 under Dot Flavr&rsquo;s R&amp;D directors, from bench chemistry and water activity
                 testing to pilot runs on industrial retort and extrusion machinery.
@@ -549,17 +506,17 @@ export default function FoodTablePage() {
               <div className="mt-10 grid items-end gap-8 border-y border-[#fff9eb]/20 py-8 sm:grid-cols-[1fr_auto]">
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <p className="font-spacemono text-[10px] uppercase tracking-[0.18em] text-[#fff9eb]/50">Intensive duration</p>
-                    <p className="mt-1 font-display text-[1.25rem] font-medium tracking-[-0.02em]">45 days applied</p>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#fff9eb]/60">Intensive duration</p>
+                    <p className="mt-1 font-serif text-[1.25rem] font-medium tracking-[-0.02em]">45 days applied</p>
                   </div>
                   <div>
-                    <p className="font-spacemono text-[10px] uppercase tracking-[0.18em] text-[#fff9eb]/50">Cohort capacity</p>
-                    <p className="mt-1 font-display text-[1.25rem] font-medium tracking-[-0.02em]">2–4 fellows max</p>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#fff9eb]/60">Cohort capacity</p>
+                    <p className="mt-1 font-serif text-[1.25rem] font-medium tracking-[-0.02em]">2–4 fellows max</p>
                   </div>
                 </div>
                 <div className="sm:text-right">
-                  <p className="font-spacemono text-[10px] uppercase tracking-[0.18em] text-[#fff9eb]/50">Programme fee</p>
-                  <p className="font-display text-[clamp(3rem,5vw,4.6rem)] font-medium leading-none tracking-[-0.05em] text-[#ff6f3c]">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#fff9eb]/60">Programme fee</p>
+                  <p className="font-serif text-[clamp(2.8rem,4.8vw,4.4rem)] font-normal leading-none tracking-[-0.04em] text-[#ff6f3c]">
                     ₹7,500
                   </p>
                 </div>
@@ -568,36 +525,36 @@ export default function FoodTablePage() {
               <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-7">
                 <Link
                   href="/#contact"
-                  className="inline-flex h-12 items-center bg-[#ff6f3c] px-7 text-[14px] font-semibold text-[#2a0610] transition-colors duration-300 hover:bg-[#fff9eb]"
+                  className="inline-flex h-12 items-center rounded-full bg-[#ff6f3c] px-7 text-[13px] font-semibold text-white shadow-md transition-all duration-300 hover:bg-[#ff8559]"
                 >
                   Submit application dossier
                 </Link>
-                <span className="font-newsreader text-[1.05rem] italic text-[#fff9eb]/60">
+                <span className="font-serif text-[1.05rem] italic text-[#fff9eb]/70">
                   Selection by screening &amp; portfolio interview
                 </span>
               </div>
             </div>
 
             <aside className="lg:col-span-5">
-              <p className="font-spacemono text-[10px] uppercase tracking-[0.22em] text-[#ffb08a]">Fellowship milestones</p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#ffb08a]">Fellowship milestones</p>
 
               <div className="js-rail-wrap relative mt-7 pl-9">
-                <span aria-hidden className="absolute bottom-2 left-[7px] top-2 w-px bg-[#fff9eb]/15" />
+                <span aria-hidden className="absolute bottom-2 left-[7px] top-2 w-px bg-[#fff9eb]/20" />
                 <span aria-hidden className="js-rail absolute bottom-2 left-[7px] top-2 w-px bg-[#ff6f3c]" />
 
                 <ol className="space-y-10">
                   {MILESTONES.map((m) => (
                     <li key={m.wk} className="relative">
-                      <span aria-hidden className="absolute -left-9 top-1 h-[15px] w-[15px] rounded-full border-2 border-[#ff6f3c] bg-[#2a0610]" />
-                      <p className="font-spacemono text-[10px] uppercase tracking-[0.2em] text-[#ff6f3c]">{m.wk}</p>
-                      <p className="mt-1.5 font-display text-[1.3rem] font-medium leading-tight tracking-[-0.025em]">{m.t}</p>
-                      <p className="mt-1.5 text-[14px] leading-[1.6] text-[#fff9eb]/65">{m.d}</p>
+                      <span aria-hidden className="absolute -left-9 top-1 h-[15px] w-[15px] rounded-full border-2 border-[#ff6f3c] bg-[#800020]" />
+                      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff6f3c]">{m.wk}</p>
+                      <p className="mt-1.5 font-serif text-[1.3rem] font-normal leading-tight tracking-[-0.02em]">{m.t}</p>
+                      <p className="mt-1.5 text-[14px] leading-[1.6] text-[#fff9eb]/75">{m.d}</p>
                     </li>
                   ))}
                 </ol>
               </div>
 
-              <p className="mt-10 flex items-center justify-between gap-4 border-t border-[#fff9eb]/20 pt-4 font-spacemono text-[10px] uppercase tracking-[0.18em] text-[#ffb08a]">
+              <p className="mt-10 flex items-center justify-between gap-4 border-t border-[#fff9eb]/20 pt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-[#ffb08a]">
                 <span>Outcome: market-ready SKU</span>
                 <span>100% IP protected</span>
               </p>
@@ -607,14 +564,14 @@ export default function FoodTablePage() {
       </section>
 
       {/* ──────────────── 6. COLLABORATION ──────────────── */}
-      <section id="collaborate" className="mt-16 border-t border-[#2a0610]/15 px-6 py-24 md:px-12 md:py-32 lg:px-16">
+      <section id="collaborate" className="mt-16 border-t border-[#800020]/15 px-6 py-24 md:px-12 md:py-32 lg:px-16">
         <div className="mx-auto grid max-w-[1240px] items-start gap-14 lg:grid-cols-12 lg:gap-20">
-          <div className="js-rv lg:col-span-6 lg:sticky lg:top-28">
+          <div className="lg:col-span-6 lg:sticky lg:top-28">
             <Label>03 / Collaboration</Label>
-            <h2 className="mt-5 font-display text-[clamp(2.6rem,5.2vw,4.8rem)] font-medium leading-[0.94] tracking-[-0.045em]">
-              Let&rsquo;s create more <em className="text-[#ff6f3c]">meaningful industry experiences.</em>
+            <h2 className="mt-4 font-serif text-[clamp(2.6rem,4.8vw,4.4rem)] font-normal leading-[1.05] tracking-[-0.03em]">
+              Let&rsquo;s create more <em className="italic text-[#ff6f3c]">meaningful industry experiences.</em>
             </h2>
-            <p className="mt-7 max-w-lg text-[16px] leading-[1.7] text-[#2a0610]/75">
+            <p className="mt-6 text-[15px] leading-[1.7] text-[#800020]/75 sm:text-[16px]">
               Are you an ingredient supplier seeking application development? A university dean
               looking to bridge academia with actual commercial benchwork? Or a co-packer searching
               for trial-tested client formulations? We actively co-design custom learning modules,
@@ -624,14 +581,14 @@ export default function FoodTablePage() {
             <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
               <Link
                 href="/#contact"
-                className="group inline-flex h-12 items-center gap-3 bg-[#2a0610] px-7 text-[14px] font-semibold text-[#fff9eb] transition-colors duration-300 hover:bg-[#ff6f3c]"
+                className="group inline-flex h-12 items-center gap-3 rounded-full bg-[#800020] px-7 text-[13px] font-semibold text-[#fff9eb] transition-all duration-300 hover:bg-[#ff6f3c]"
               >
                 Partner with us
-                <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
               </Link>
               <a
                 href="mailto:hello@dotflavr.com"
-                className="text-[14px] underline decoration-[#2a0610]/30 underline-offset-[6px] transition-colors hover:decoration-[#ff6f3c]"
+                className="text-[13px] font-medium text-[#800020] underline decoration-[#ff6f3c]/45 underline-offset-[6px] hover:text-[#ff6f3c]"
               >
                 hello@dotflavr.com
               </a>
@@ -640,14 +597,14 @@ export default function FoodTablePage() {
 
           <ul className="lg:col-span-6">
             {AUDIENCES.map((a, i) => (
-              <li key={a.title} className="js-rv group border-t border-[#2a0610]/20 last:border-b">
+              <li key={a.title} className="group border-t border-[#800020]/20 last:border-b">
                 <div className="grid grid-cols-[2.5rem_1fr] gap-x-3 py-8 sm:grid-cols-[3.5rem_1fr]">
-                  <span className="pt-1.5 font-spacemono text-[11px] text-[#ff6f3c]">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="pt-1.5 font-mono text-[11px] font-bold text-[#ff6f3c]">{String(i + 1).padStart(2, "0")}</span>
                   <div className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2">
-                    <h3 className="font-display text-[clamp(1.6rem,2.4vw,2.2rem)] font-medium leading-[1.02] tracking-[-0.035em] transition-colors duration-300 group-hover:text-[#ff6f3c]">
+                    <h3 className="font-serif text-[clamp(1.6rem,2.4vw,2.2rem)] font-normal leading-[1.05] tracking-[-0.02em] transition-colors duration-300 group-hover:text-[#ff6f3c]">
                       {a.title}
                     </h3>
-                    <p className="mt-3 max-w-md text-[14px] leading-[1.65] text-[#2a0610]/70">{a.desc}</p>
+                    <p className="mt-3 max-w-md text-[14px] leading-[1.65] text-[#800020]/75">{a.desc}</p>
                   </div>
                 </div>
               </li>
