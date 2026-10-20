@@ -43,9 +43,9 @@ function Wordmark({ ghost = false }: { ghost?: boolean }) {
             ghost ? "js-dot bg-[#ff6f3c]" : "invisible"
           } mr-[0.04em] inline-block h-[0.17em] w-[0.17em] rounded-full align-baseline`}
         />
-        <span className="js-letters">dot</span>
+        <span className="js-letters">F</span>
       </span>
-      <span className="js-letters block">flavr</span>
+      {/* <span className="js-letters block">F</span> */}
     </span>
   );
 }
@@ -252,9 +252,9 @@ function PreloaderInner() {
           <span className="js-fade invisible text-[#fff9eb]/60">Setting the table</span>
         </div>
 
-        {/* Wordmark: ghost + rising liquid */}
+        {/* Wordmark: ghost + rising liquid (Updated to font-league-spartan) */}
         <div className="absolute inset-0 grid place-items-center">
-          <div className="js-fade invisible relative select-none text-left font-display font-medium leading-[0.84] tracking-[-0.05em] [font-size:min(30vw,30svh)]">
+          <div className="js-fade invisible relative select-none text-left font-league-spartan font-medium leading-[0.84] tracking-[-0.05em] [font-size:min(30vw,30svh)]">
             <div className="text-[#fff9eb]/[0.12]">
               <Wordmark ghost />
             </div>

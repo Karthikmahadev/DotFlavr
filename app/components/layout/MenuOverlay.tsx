@@ -93,7 +93,7 @@ export default function MenuOverlay({
                     onMouseEnter={() => setHovered(i)}
                     onFocus={() => setHovered(i)}
                     onBlur={() => setHovered(null)}
-                    className={`group flex items-center font-display text-6xl leading-[1.05] tracking-[-0.03em] transition-opacity duration-300 focus-visible:outline-none md:text-8xl ${
+                    className={`group flex items-center font-display text-6xl leading-[1.05] tracking-[-0.03em] transition-opacity duration-300 focus-visible:outline-none md:text-6xl ${
                       hovered !== null && hovered !== i ? "opacity-30" : "opacity-100"
                     }`}
                   >

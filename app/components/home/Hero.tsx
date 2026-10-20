@@ -25,13 +25,13 @@ const NOTES: Note[] = [
     side: "right",
     tilt: "rotate-[2deg]",
   },
-  {
-    title: "Pipette & pencil",
-    detail: "Measured to 0.1 ml. Written down in pencil.",
-    pos: "left-[27%] top-[66%]",
-    side: "right",
-    tilt: "-rotate-[2deg]",
-  },
+  // {
+  //   title: "Pipette & pencil",
+  //   detail: "Measured to 0.1 ml. Written down in pencil.",
+  //   pos: "left-[27%] top-[66%]",
+  //   side: "right",
+  //   tilt: "-rotate-[2deg]",
+  // },
   {
     title: "The empty chair",
     detail: "Reserved for whoever has the next idea.",
@@ -203,7 +203,7 @@ export default function Hero() {
         ))}
       </div>
 
-      <Stamp />
+      {/* <Stamp /> */}
 
       {/* Content */}
       <div className="relative z-10 flex min-h-svh flex-col justify-end px-6 pb-10 pt-28 lg:absolute lg:inset-0 lg:min-h-0 lg:px-[4.4%] lg:pb-[5svh] lg:pt-0">
@@ -215,12 +215,15 @@ export default function Hero() {
 
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           {/* Headline */}
-          <h1 className="js-title font-display text-[clamp(4.6rem,22vw,9rem)] font-medium leading-[0.84] tracking-[-0.045em] text-[#fff9eb] drop-shadow-[0_6px_30px_rgba(0,0,0,0.35)] lg:text-[min(15vw,31svh)]">
-            <span className="block overflow-hidden py-[0.05em] -my-[0.05em]">
-              <span className="js-line block">The Food</span>
+        <h1 className="js-title font-display text-[clamp(3.2rem,15.5vw,8rem)] font-medium leading-[0.86] tracking-[-0.045em] text-[#fff9eb] drop-shadow-[0_6px_30px_rgba(0,0,0,0.35)] lg:text-[min(9.5vw,21svh)]">
+            <span className="-my-[0.05em] block overflow-hidden py-[0.05em]">
+              <span className="js-line block">We make</span>
             </span>
-            <span className="block overflow-hidden py-[0.05em] -my-[0.05em] lg:pl-[0.55em]">
-              <span className="js-line block italic text-[#ff6f3c]">Table</span>
+            <span className="-my-[0.05em] block overflow-hidden py-[0.05em]">
+              <span className="js-line block">food ideas</span>
+            </span>
+            <span className="-my-[0.05em] block overflow-hidden py-[0.05em] ">
+              <span className="js-line block italic text-[#ff6f3c]">work.</span>
             </span>
           </h1>
 

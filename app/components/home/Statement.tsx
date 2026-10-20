@@ -10,15 +10,12 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 type Token = { t: string } | { img: string; alt: string; bg: string };
 
-// Dot Flavr brand statement highlighting food innovation, R&D trials, and commercialization
 const CONTENT: Token[] = [
-  { t: "We engineer market-ready food products through formulation" },
+  { t: "Good ideas. Better food products." },
   { img: "/images/formulation-trials.jpg", alt: "Food product formulation trials", bg: "#ff6f3c" },
-  { t: "precision R&D" },
+  { t: "We bring together food science, practical trials and product innovation" },
   { img: "/images/food-science-lab.avif", alt: "Food science laboratory trials", bg: "#800020" },
-  { t: "shelf-life stability and scalable" },
-  { img: "/images/commercial-scaleup.jpg", alt: "Commercial food production scale up", bg: "#ff6f3c" },
-  { t: "commercialization" },
+  { t: "to move ideas towards commercialisation." },
 ];
 
 export default function Statement() {
@@ -29,32 +26,30 @@ export default function Statement() {
       const mm = gsap.matchMedia();
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        // Every word and inline visual fades up cleanly on scroll
         gsap.fromTo(
           ".js-tok",
-          { opacity: 0.15, yPercent: 28 },
+          { opacity: 0.15, yPercent: 20 },
           {
             opacity: 1,
             yPercent: 0,
             ease: "none",
-            stagger: 0.1,
+            stagger: 0.05,
             scrollTrigger: {
               trigger: root.current,
-              start: "top 72%",
-              end: "center 45%",
+              start: "top 80%",
+              end: "center 50%",
               scrub: true,
             },
           }
         );
 
-        // Inline product/R&D visuals pop in with a subtle dynamic rotation
         gsap.from(".js-pic", {
           scale: 0,
           rotate: -12,
-          duration: 0.85,
+          duration: 0.75,
           ease: "back.out(1.8)",
-          stagger: 0.16,
-          scrollTrigger: { trigger: root.current, start: "top 55%", once: true },
+          stagger: 0.12,
+          scrollTrigger: { trigger: root.current, start: "top 60%", once: true },
         });
       });
 
@@ -68,33 +63,37 @@ export default function Statement() {
   return (
     <section
       ref={root}
-      className="relative flex min-h-svh items-center justify-center bg-[#fff9eb] px-6 py-32 text-[#800020]"
+      className="relative flex h-svh w-full items-center justify-center overflow-hidden bg-[#fff9eb] px-8 text-[#800020]"
     >
-      <h2 className="mx-auto max-w-[16em] text-balance text-center font-serif text-[clamp(2.25rem,6vw,6rem)] font-medium leading-[1.02] tracking-[-0.035em]">
-        {CONTENT.map((tok, i) =>
-          "t" in tok ? (
-            tok.t.split(" ").map((w, j) => (
-              <span key={`${i}-${j}`}>
-                <span className="js-tok inline-block will-change-transform">{w}</span>{" "}
+      {/* Increased max-w to make it wider */}
+      <div className="mx-auto w-full max-w-[76rem]">
+        {/* Larger clamp font size for bolder impact */}
+        <h2 className="flex flex-wrap items-center justify-center gap-x-[0.25em] gap-y-[0.18em] text-center font-serif text-[clamp(2.1rem,4.8vw,5.2rem)] font-medium leading-[1.08] tracking-[-0.03em]">
+          {CONTENT.map((tok, i) =>
+            "t" in tok ? (
+              tok.t.split(" ").map((w, j) => (
+                <span key={`${i}-${j}`} className="inline-block overflow-hidden py-0.5">
+                  <span className="js-tok inline-block will-change-transform">{w}</span>
+                </span>
+              ))
+            ) : (
+              <span
+                key={i}
+                className="js-tok js-pic relative inline-flex h-[0.7em] w-[1.3em] overflow-hidden rounded-lg align-middle shadow-md ring-1 ring-[#800020]/15"
+                style={{ backgroundColor: tok.bg }}
+              >
+                <Image
+                  src={tok.img}
+                  alt={tok.alt}
+                  fill
+                  sizes="160px"
+                  className="object-cover"
+                />
               </span>
-            ))
-          ) : (
-            <span
-              key={i}
-              className="js-tok js-pic relative mr-[0.14em] inline-block h-[0.8em] w-[1.12em] overflow-hidden align-[-0.05em] shadow-md ring-1 ring-[#800020]/15"
-              style={{ backgroundColor: tok.bg }}
-            >
-              <Image
-                src={tok.img}
-                alt={tok.alt}
-                fill
-                sizes="160px"
-                className="object-cover"
-              />
-            </span>
-          )
-        )}
-      </h2>
+            )
+          )}
+        </h2>
+      </div>
     </section>
   );
 }

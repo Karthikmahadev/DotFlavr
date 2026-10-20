@@ -24,7 +24,7 @@ import { usePreloaderDone } from "@/app/lib/loader-store";
 const ease = [0.16, 1, 0.3, 1] as const;
 const wipe = [0.76, 0, 0.24, 1] as const;
 
-const LABEL = "Selected work";
+const LABEL = "What we Solve";
 const COLUMNS = 6;
 
 /* ─────────────────────────── shared state ─────────────────────────── */

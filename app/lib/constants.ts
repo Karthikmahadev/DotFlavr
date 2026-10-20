@@ -4,9 +4,9 @@
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Dot Flavr ", href: "/dotflavr" },
+    { label: "What We Solve", href: "/whatwesolve" },
   { label: "The Food Table", href: "/thefoodtable" },
-  { label: "Projects", href: "/projects" },
-  { label: "Contact", href: "/contact" },
+  { label: "Reach Us", href: "/reachus" },
 ];
 
 export const NAV_CTA = { label: "Join the table →", href: "#join" };

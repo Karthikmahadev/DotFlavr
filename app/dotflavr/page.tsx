@@ -240,7 +240,7 @@ export default function DotFlavr() {
     <Stage>
       <MethodologyTransition />
       <Process />
-      <StatsPinSection />
+      {/* <StatsPinSection /> */}
       <Experience />
       {/* <HowItWorks /> */}
       {/* <DotFlavrPhilosophy /> */}

@@ -10,23 +10,23 @@ import { useGSAP } from "@gsap/react";
 const STEPS = [
   {
     n: "1",
-    title: "Ideation & Feasibility",
-    body: "Ingredient selection, regulatory compliance, nutrition profiling, and initial benchmark mapping.",
+    title: "Concept & Feasibility",
+    body: "Assess the idea, ingredients, target product profile and technical feasibility.",
   },
   {
     n: "2",
     title: "Formulation & Trials",
-    body: "Recipe engineering, sensory evaluation, flavor balancing, and active benchtop trial iterations.",
+    body: "Develop, test and refine formulations through practical trials.",
   },
   {
     n: "3",
-    title: "Shelf-Life & Stability",
-    body: "Water activity testing, microbial analysis, barrier packaging checks, and accelerated aging studies.",
+    title: "Stability & Validation",
+    body: "Evaluate product quality, stability and shelf life through appropriate testing.",
   },
   {
     n: "4",
     title: "Scale-Up & Commercialization",
-    body: "Factory pilot runs, COGS optimization, ingredient vendor sourcing, and final retail packaging handover.",
+    body: "Support process standardisation, production planning and packaging decisions.",
   },
 ];
 
@@ -233,13 +233,13 @@ export default function HowItWorks() {
         {/* Heading */}
         <div className="mb-14 text-center md:mb-16">
           <p className="js-head text-xs font-semibold uppercase tracking-widest text-[#ff6f3c]">
-            Consulting Methodology
+            Product Journey
           </p>
           <h2 className="js-head mt-2 text-[clamp(2rem,3.4vw,2.75rem)] font-medium leading-none tracking-[-0.03em] text-[#800020]">
-            How we develop food products
+            From Idea to Product
           </h2>
           <p className="js-head mt-3 text-sm text-neutral-500">
-            From raw bench concept to production line trials and shelf-ready commercial launch.
+            A structured journey from concept and formulation to validation and scale-up.
           </p>
         </div>
 
