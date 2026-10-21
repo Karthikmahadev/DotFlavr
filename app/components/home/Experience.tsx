@@ -73,7 +73,7 @@ export default function Experience() {
         className="js-exp-dot absolute right-[18%] top-12 hidden h-3 w-3 rounded-full bg-[#ff6f3c] shadow-[0_0_12px_rgba(255,111,60,0.5)] md:block"
       />
 
-      <div className="mx-auto flex max-w-[52rem] flex-col items-center text-center">
+      <div className="mx-auto flex max-w-[56rem] flex-col items-center text-center">
         {/* Category Label */}
         <div className="js-exp-label inline-flex items-center gap-2 rounded-full border border-[#ff6f3c]/30 bg-[#ff6f3c]/10 px-4 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-[#ff6f3c]">
           <Burst />
@@ -81,55 +81,58 @@ export default function Experience() {
         </div>
 
         {/* Editorial Headline */}
-        <h2 className="mt-8 text-balance font-serif text-[clamp(2.4rem,4.6vw,4.2rem)] font-normal leading-[1.08] tracking-[-0.025em] text-[#800020]">
-          <Words text="Built on rigorous" mask />{" "}
+        <h2 className="mt-8 text-balance font-serif text-[clamp(2.4rem,4.4vw,3.8rem)] font-normal leading-[1.1] tracking-[-0.025em] text-[#800020]">
+          <Words text="Food science." mask />{" "}
           <em className="italic text-[#ff6f3c]">
-            <Words text="food technology trials" mask />
+            <Words text="Practical trials." mask />
           </em>{" "}
-          <Words text="and scalable" mask />{" "}
-          <em className="italic text-[#ff6f3c]">
-            <Words text="factory engineering" mask />
-          </em>
+          <Words text="Better products." mask />
         </h2>
 
         {/* Body Narrative */}
         <p className="js-exp-copy mt-7 max-w-[42rem] text-[15px] leading-[1.7] text-[#800020]/80 sm:text-[17px]">
-          Before founding Dot Flavr, we observed the recurring pitfalls that derail new food ventures: recipes optimized for domestic kitchens that separate under retort, clean-label claims that spoil on retailer shelves, and formulations that co-packers cannot run efficiently. Our consultancy replaces guesswork with systematic trial protocols, precision ingredient science, and clear commercial parameters.
+          Dot Flavr combines food science with hands-on product development. We help businesses refine formulations, evaluate product quality and develop practical processes for their next stage of growth.
         </p>
 
         {/* 3 Grounded Pillars / Bento Cards Structure */}
-        <div className="mt-14 grid w-full grid-cols-1 gap-5 text-left sm:grid-cols-3">
+        <div className="mt-14 grid w-full grid-cols-1 gap-6 text-left sm:grid-cols-3 items-stretch">
           {[
             {
               num: "01",
-              tag: "SCIENTIFIC",
-              desc: "Water activity, pH equilibrium, microbial safety, and humectant optimization.",
+              tag: "SCIENCE",
+              title: "Product & Ingredient Science",
+              desc: "Ingredient functionality, formulation parameters and product quality evaluation.",
             },
             {
               num: "02",
-              tag: "PRACTICAL",
-              desc: "Extensive bench prototyping, sensory panels, and trial-by-trial optimization.",
+              tag: "TRIALS",
+              title: "Formulation & Testing",
+              desc: "Prototype development, sensory evaluation and iterative refinement.",
             },
             {
               num: "03",
-              tag: "COMMERCIAL",
-              desc: "Factory pilot runs, COGS analysis, vendor vetting, and co-packer handover.",
+              tag: "PROCESS",
+              title: "Production Readiness",
+              desc: "SOP development, process standardisation and scale-up guidance.",
             },
           ].map((pillar) => (
             <div
               key={pillar.num}
-              className="js-exp-pill group relative flex flex-col justify-between rounded-2xl bg-white/70 p-6 shadow-sm ring-1 ring-[#800020]/10 transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-md hover:ring-[#ff6f3c]/40"
+              className="js-exp-pill group relative flex flex-col justify-between rounded-2xl bg-white/70 p-7 shadow-sm ring-1 ring-[#800020]/10 transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-md hover:ring-[#ff6f3c]/40"
             >
               <div>
                 <div className="flex items-center justify-between font-mono text-[11px] font-bold text-[#ff6f3c]">
                   <span>{pillar.num} / {pillar.tag}</span>
                   <span className="h-1.5 w-1.5 rounded-full bg-[#ff6f3c]/50 transition-colors group-hover:bg-[#ff6f3c]" />
                 </div>
-                <p className="mt-4 text-[13px] font-medium leading-relaxed text-[#800020]/85 sm:text-[14px]">
+                <h3 className="mt-4 font-serif text-[1.25rem] font-medium leading-snug text-[#800020]">
+                  {pillar.title}
+                </h3>
+                <p className="mt-3 text-[14px] leading-relaxed text-[#800020]/75">
                   {pillar.desc}
                 </p>
               </div>
-              <div className="mt-6 border-t border-[#800020]/10 pt-3 font-mono text-[9px] uppercase tracking-wider text-[#800020]/40">
+              <div className="mt-8 border-t border-[#800020]/10 pt-3 font-mono text-[9px] uppercase tracking-wider text-[#800020]/40">
                 Dot Flavr Protocol
               </div>
             </div>

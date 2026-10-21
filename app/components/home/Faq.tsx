@@ -9,28 +9,32 @@ import { useGSAP } from "@gsap/react";
 
 const FAQS = [
   {
-    q: "How do you define the timeline of a project?",
-    a: "The timeline is set after we understand the size of the project, what needs to be developed, and which steps are involved. Before starting, we map the entire process and share a clear schedule, with the main deliverables and expected dates for each phase.",
+    q: "How long does a project take?",
+    a: "There’s no one-size-fits-all timeline. Once we understand what you’re looking to make, we’ll map out the steps and agree on an estimated timeline.",
   },
   {
-    q: "Can Dot Flavr take care of just one step?",
-    a: "Yes. You can bring us in for a single stage, such as benchtop prototyping, shelf-life testing or scale-up planning, or for the full journey from idea to production. We adapt to where your project is today.",
+    q: "Can you help with just one part of a project?",
+    a: "Of course! Whether it’s refining a formulation or figuring out a specific challenge, we can explore the support you need.",
   },
   {
-    q: "Who will work on my project?",
-    a: "A small, dedicated team of food scientists, technologists and chefs. You will know exactly who is on your project and have a direct line to them from the first week.",
+    q: "Who’s going to work on my project?",
+    a: "You’ll work with the Dot Flavr team. The people involved will depend on your project and what it needs.",
   },
   {
-    q: "Do I need to arrive with the project fully structured?",
-    a: "No. You can arrive with just an idea, a problem you need to solve, or a product that is still being planned. Our role is also to help organise what is still loose and turn it into a clear, achievable project.",
+    q: "What if I have only a rough idea?",
+    a: "That’s a perfectly good place to start. Bring your scribbles, questions, and half-formed ideas. We’ll explore what’s possible together.",
   },
   {
-    q: "How does a project budget work?",
-    a: "After an initial conversation we scope the work and share a fixed estimate broken down by phase. You see what each stage costs before you commit, and nothing is added without your approval.",
+    q: "How much will it cost?",
+    a: "It depends on the scope and complexity of the work. Once we understand your requirements, we’ll share the proposed scope and pricing before we begin.",
   },
   {
-    q: "Does Dot Flavr offer follow-up after launch?",
-    a: "Yes. We stay available after launch to review results, troubleshoot production issues and support reformulation, so the product keeps performing once it reaches the market.",
+    q: "Do you work with small businesses and first-time founders?",
+    a: "Yes! We’re open to working with food businesses at different stages, from first-time founders exploring an idea to businesses looking to refine an existing product.",
+  },
+  {
+    q: "Can I reach out after a project is completed?",
+    a: "Absolutely. If you need further guidance, get in touch and we can discuss the next steps.",
   },
 ];
 
@@ -144,24 +148,27 @@ export default function Faq() {
         {/* Right column comes first in the DOM order on mobile */}
         <aside className="js-faq-side self-start lg:sticky lg:top-32 lg:order-2">
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ff6f3c]">
-            FAQ
+            Got questions?
           </p>
           <h2 className="mt-4 font-serif text-[clamp(2rem,2.9vw,2.6rem)] font-medium leading-[1.05] tracking-[-0.03em] text-[#800020]">
-            Still have questions?
+            Still curious?
           </h2>
-          <p className="mt-6 max-w-[13.5rem] text-[15px] leading-[1.6] text-[#800020]/75">
-            Have more questions? We will be happy to answer them. Do not hesitate to get in touch.
+          <p className="mt-6 max-w-[15rem] text-[15px] leading-[1.6] text-[#800020]/75">
+            Have a question we haven’t answered? We’re all ears.
           </p>
           <Link
             href="/#contact"
             className="mt-7 inline-flex h-[39px] items-center rounded-full bg-[#800020] px-6 text-[14px] font-medium text-[#fff9eb] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#ff6f3c]"
           >
-            Start a project
+            Let’s talk →
           </Link>
         </aside>
 
         {/* Accordion */}
         <div className="js-faq-list lg:order-1">
+          <div className="mb-8 px-[7px]">
+            <p className="font-newsreader text-[1.15rem] italic text-[#ff6f3c]">A few things you might be wondering about.</p>
+          </div>
           {FAQS.map((f, i) => (
             <Item
               key={f.q}

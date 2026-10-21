@@ -61,3 +61,12 @@ html.lenis, html.lenis body { height: auto; }
 /* While the preloader runs */
 html.is-loading { overflow: hidden; }
 html.is-loading main { visibility: hidden; }
+
+html {
+  scrollbar-gutter: stable;
+  overflow-x: clip;
+}
+
+body {
+  overflow-x: clip;
+}

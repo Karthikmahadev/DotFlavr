@@ -31,7 +31,7 @@ function StudioClock() {
   }, []);
 
   return (
-    <p className="flex items-center gap-2 text-[13px] text-[#fff9eb]/70">
+    <p className="flex items-center gap-2 text-[12px] text-[#fff9eb]/70 sm:text-[13px]">
       <span className="relative flex h-2 w-2">
         <span className="absolute inset-0 animate-ping rounded-full bg-[#ff6f3c] opacity-60 motion-reduce:animate-none" />
         <span className="relative h-2 w-2 rounded-full bg-[#ff6f3c]" />
@@ -77,11 +77,11 @@ export default function MenuOverlay({
 
           <nav
             aria-label="Main"
-            className="relative flex h-full flex-col justify-center gap-1 px-6 pb-24 md:px-16"
+            className="relative flex h-full flex-col justify-center gap-1 px-6 pb-28 md:px-16"
             onMouseLeave={() => setHovered(null)}
           >
             {NAV_LINKS.map((link, i) => (
-              <div key={link.href} className="overflow-hidden pb-2">
+              <div key={link.href} className="overflow-hidden pb-1 sm:pb-2">
                 <motion.div
                   initial={{ y: "110%" }}
                   animate={{ y: 0, transition: { delay: 0.25 + i * 0.07, duration: 0.8, ease } }}
@@ -93,14 +93,14 @@ export default function MenuOverlay({
                     onMouseEnter={() => setHovered(i)}
                     onFocus={() => setHovered(i)}
                     onBlur={() => setHovered(null)}
-                    className={`group flex items-center font-display text-6xl leading-[1.05] tracking-[-0.03em] transition-opacity duration-300 focus-visible:outline-none md:text-6xl ${
+                    className={`group flex items-center font-display text-3xl leading-[1.05] tracking-[-0.03em] transition-opacity duration-300 focus-visible:outline-none sm:text-4xl md:text-6xl ${
                       hovered !== null && hovered !== i ? "opacity-30" : "opacity-100"
                     }`}
                   >
                     {/* a dot grows in and nudges the word along */}
                     <span
                       aria-hidden
-                      className="mr-0 inline-block h-3 w-0 shrink-0 rounded-full bg-[#ff6f3c] transition-all duration-500 ease-out group-hover:mr-4 group-hover:w-3 group-focus-visible:mr-4 group-focus-visible:w-3 md:h-5 md:group-hover:mr-6 md:group-hover:w-5 md:group-focus-visible:mr-6 md:group-focus-visible:w-5"
+                      className="mr-0 inline-block h-2 w-0 shrink-0 rounded-full bg-[#ff6f3c] transition-all duration-500 ease-out group-hover:mr-3 group-hover:w-2 group-focus-visible:mr-3 group-focus-visible:w-2 sm:h-2.5 sm:group-hover:mr-4 sm:group-hover:w-2.5 md:h-5 md:group-hover:mr-6 md:group-hover:w-5 md:group-focus-visible:mr-6 md:group-focus-visible:w-5"
                     />
                     {link.label}
                   </Link>
@@ -114,10 +114,10 @@ export default function MenuOverlay({
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0, transition: { delay: 0.75, duration: 0.8, ease } }}
             exit={{ opacity: 0, transition: { duration: 0.2 } }}
-            className="absolute inset-x-0 bottom-0 flex flex-col gap-3 border-t border-[#fff9eb]/15 px-6 py-5 sm:flex-row sm:items-center sm:justify-between md:px-16"
+            className="absolute inset-x-0 bottom-0 flex flex-col gap-2.5 border-t border-[#fff9eb]/15 px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:py-5 md:px-16"
           >
             <StudioClock />
-            <ul className="flex gap-6 text-[13px]">
+            <ul className="flex gap-5 text-[12px] sm:gap-6 sm:text-[13px]">
               {SOCIALS.map((s) => (
                 <li key={s.label}>
                   <a

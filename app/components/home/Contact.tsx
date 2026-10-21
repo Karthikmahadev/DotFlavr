@@ -11,24 +11,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SERVICES = [
   "Product development",
-  "Formulation",
-  "Shelf-life testing",
-  "Scale-up",
-  "Sensory panels",
-  "Consulting",
-  "Training",
-  "Lab access",
-];
-
-const BUDGETS = ["Under ₹1 lakh", "₹1 – 5 lakh", "Above ₹5 lakh", "Not sure yet"];
-
-const CODES = [
-  { c: "IN", d: "+91" },
-  { c: "US", d: "+1" },
-  { c: "GB", d: "+44" },
-  { c: "AE", d: "+971" },
-  { c: "SG", d: "+65" },
-  { c: "AU", d: "+61" },
+  "Recipe & flavour development",
+  "Food business ideas",
+  "Shelf-life improvement",
+  "Consulting & technical guidance",
+  "Workshops & collaborations",
+  "Something else",
 ];
 
 // Replace with your real details.
@@ -87,12 +75,10 @@ export default function ContactForm() {
   const root = useRef<HTMLElement>(null);
 
   const [name, setName] = useState("");
-  const [code, setCode] = useState("+91");
-  const [phone, setPhone] = useState("");
   const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [services, setServices] = useState<string[]>([]);
-  const [budget, setBudget] = useState<string | null>(null);
   const [details, setDetails] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [errors, setErrors] = useState<{ email?: string; services?: string }>({});
@@ -151,16 +137,12 @@ export default function ContactForm() {
     e.preventDefault();
     const next: typeof errors = {};
     if (email && !/^\S+@\S+\.\S+$/.test(email)) next.email = "That email doesn't look right.";
-    if (!email && !phone) next.email = "Leave an email or a phone number so we can reach you.";
-    if (services.length === 0) next.services = "Tick at least one.";
     setErrors(next);
     if (Object.keys(next).length) return;
 
     setStatus("sending");
     try {
-      // TODO: send to your endpoint, e.g.
-      // await fetch("/api/contact", { method: "POST", body: JSON.stringify(payload) });
-      const payload = { name, phone: phone ? `${code} ${phone}` : "", company, email, services, budget, details };
+      const payload = { name, company, email, phone, services, details };
       console.log("contact payload", payload);
       await new Promise((r) => setTimeout(r, 700));
       setStatus("sent");
@@ -170,13 +152,12 @@ export default function ContactForm() {
   };
 
   const reset = () => {
-    setName(""); setPhone(""); setCompany(""); setEmail("");
-    setServices([]); setBudget(null); setDetails("");
+    setName(""); setCompany(""); setEmail(""); setPhone("");
+    setServices([]); setDetails("");
     setErrors({}); setStatus("idle");
   };
 
   return (
-    // No overflow-hidden here: it would break the sticky left column.
     <section
       ref={root}
       id="contact"
@@ -194,8 +175,7 @@ export default function ContactForm() {
           </h2>
 
           <p className="mt-9 max-w-[24rem] font-newsreader text-[1.3rem] leading-[1.35] text-[#fff9eb]/85">
-            Tell us what you&rsquo;re making, or what you wish existed. We&rsquo;ll read every
-            word and reply with clear next steps, not a sales deck.
+            Have a food idea, a product you want to develop, or simply something you&rsquo;d like to explore? Tell us about it. Let&rsquo;s figure out the possibilities together.
           </p>
 
           <dl className="mt-12 space-y-5 text-[15px]">
@@ -217,7 +197,7 @@ export default function ContactForm() {
               </dd>
             </div>
             <div className="flex gap-6 border-y border-[#fff9eb]/20 py-5">
-              <dt className="w-20 shrink-0 text-[#fff9eb]/50">Bench</dt>
+              <dt className="w-20 shrink-0 text-[#fff9eb]/50">Based in</dt>
               <dd>Coimbatore, Tamil Nadu</dd>
             </div>
           </dl>
@@ -267,16 +247,16 @@ export default function ContactForm() {
                   The brief
                 </h3>
                 <p className="mt-2 font-newsreader text-[1.05rem] italic text-[#2a0610]/60">
-                  Fill in what you can. Skip what you can&rsquo;t.
+                  Tell us what you can. Skip what you can&rsquo;t.
                 </p>
 
                 <div className="mt-9 space-y-8">
                   <div className="grid gap-8 sm:grid-cols-2">
-                    <Field n="01" label="Name" htmlFor="c-name">
+                    <Field n="01" label="Your name" htmlFor="c-name">
                       <input id="c-name" value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" placeholder="Your name" className={line} />
                     </Field>
-                    <Field n="02" label="Company" htmlFor="c-company">
-                      <input id="c-company" value={company} onChange={(e) => setCompany(e.target.value)} autoComplete="organization" placeholder="Where you work" className={line} />
+                    <Field n="02" label="Company / Organisation" htmlFor="c-company">
+                      <input id="c-company" value={company} onChange={(e) => setCompany(e.target.value)} autoComplete="organization" placeholder="Where you work (Optional)" className={line} />
                     </Field>
                   </div>
 
@@ -293,27 +273,24 @@ export default function ContactForm() {
                         className={line}
                       />
                     </Field>
-                    <Field n="04" label="Phone" htmlFor="c-phone">
-                      <div className="flex items-end gap-3 border-b border-[#2a0610]/30 transition-colors focus-within:border-[#2a0610]">
-                        <select
-                          aria-label="Country code"
-                          value={code}
-                          onChange={(e) => setCode(e.target.value)}
-                          className="appearance-none bg-transparent py-2 pr-1 text-[15px] text-[#2a0610] outline-none"
-                        >
-                          {CODES.map((c) => (
-                            <option key={c.c} value={c.d}>{c.c} {c.d}</option>
-                          ))}
-                        </select>
-                        <input id="c-phone" type="tel" inputMode="tel" autoComplete="tel-national" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="98765 43210" className="min-w-0 flex-1 bg-transparent py-2 text-[17px] outline-none placeholder:text-[#2a0610]/30" />
-                      </div>
+                    <Field n="04" label="Phone / WhatsApp" htmlFor="c-phone">
+                      <input
+                        id="c-phone"
+                        type="tel"
+                        inputMode="tel"
+                        autoComplete="tel"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="98765 43210 (Optional)"
+                        className={line}
+                      />
                     </Field>
                   </div>
 
                   <fieldset className="js-field">
                     <legend className="flex items-baseline gap-2.5">
                       <span className="font-newsreader text-[15px] italic text-[#ff6f3c]">05</span>
-                      <span className="text-[13px] font-semibold uppercase tracking-[0.12em]">What do you need?</span>
+                      <span className="text-[13px] font-semibold uppercase tracking-[0.12em]">What are you exploring?</span>
                     </legend>
                     <div className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
                       {SERVICES.map((s) => (
@@ -334,52 +311,31 @@ export default function ContactForm() {
                     {errors.services && <p role="alert" className="mt-2 text-[13px] text-[#b3141f]">{errors.services}</p>}
                   </fieldset>
 
-                  <fieldset className="js-field">
-                    <legend className="flex items-baseline gap-2.5">
-                      <span className="font-newsreader text-[15px] italic text-[#ff6f3c]">06</span>
-                      <span className="text-[13px] font-semibold uppercase tracking-[0.12em]">Rough budget</span>
-                    </legend>
-                    <div className="mt-3">
-                      {BUDGETS.map((b) => (
-                        <label key={b} className="group flex cursor-pointer items-center justify-between border-b border-[#2a0610]/15 py-3 text-[16px] first:border-t">
-                          <input
-                            type="radio"
-                            name="budget"
-                            checked={budget === b}
-                            onChange={() => setBudget(b)}
-                            className="peer sr-only"
-                          />
-                          <span className="transition-transform duration-300 group-hover:translate-x-1 group-has-[:checked]:translate-x-1 group-has-[:checked]:font-medium">{b}</span>
-                          <span className="grid h-[18px] w-[18px] place-items-center rounded-full border border-[#2a0610]/40 peer-focus-visible:ring-2 peer-focus-visible:ring-[#ff6f3c]">
-                            <span className="h-2.5 w-2.5 scale-0 rounded-full bg-[#ff6f3c] transition-transform duration-300 group-has-[:checked]:scale-100" />
-                          </span>
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-
-                  <Field n="07" label="The idea" htmlFor="c-details">
+                  <Field n="06" label="Tell us a little about your idea." htmlFor="c-details">
+                    <p className="mt-1 font-newsreader text-[0.95rem] italic text-[#2a0610]/60">
+                      What are you making, exploring, or trying to figure out?
+                    </p>
                     <textarea
                       id="c-details"
                       rows={4}
                       value={details}
                       onChange={(e) => setDetails(e.target.value)}
-                      placeholder="What are you making? What's hard about it?"
-                      className={`${line} resize-y leading-relaxed`}
+                      placeholder="Not quite sure where to start? That’s okay. Tell us what you have in mind, even if it’s just a rough idea."
+                      className={`${line} mt-2 resize-y leading-relaxed`}
                     />
                   </Field>
                 </div>
 
                 <div className="mt-10 flex flex-wrap items-center justify-between gap-5">
                   <p className="max-w-[14rem] font-newsreader text-[0.95rem] italic leading-snug text-[#2a0610]/55">
-                    Nothing is shared outside the bench.
+                    Your idea stays between us.
                   </p>
                   <button
                     type="submit"
                     disabled={status === "sending"}
                     className="group inline-flex h-[52px] items-center gap-3 bg-[#2a0610] px-8 text-[15px] font-semibold text-[#fff9eb] transition-colors duration-300 hover:bg-[#ff6f3c] disabled:cursor-wait disabled:opacity-60"
                   >
-                    {status === "sending" ? "Sending…" : "Hand it over"}
+                    {status === "sending" ? "Sending…" : "Send your note"}
                     <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </button>
                 </div>

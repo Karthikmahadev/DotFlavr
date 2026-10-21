@@ -119,7 +119,7 @@ export default function MethodologyTransition() {
   return (
     <section
       ref={root}
-      className="relative flex w-full flex-col items-center bg-[#fff9eb] px-6 pt-28 text-center text-[#2a0610] md:pt-36"
+      className="relative flex w-full max-w-full overflow-x-hidden flex-col items-center bg-[#fff9eb] px-6 pt-28 text-center text-[#2a0610] md:pt-36"
     >
       <div className="mx-auto flex max-w-[56rem] flex-col items-center">
         {/* Label between two hairlines */}
@@ -161,8 +161,8 @@ export default function MethodologyTransition() {
         </h2>
       </div>
 
-      {/* Table edge + cloche */}
-      <div className="js-cloche relative mt-20 h-[92px] w-screen md:mt-28">
+      {/* Table edge + cloche (fixed w-screen to w-full to prevent horizontal overflow) */}
+      <div className="js-cloche relative mt-20 h-[92px] w-full md:mt-28">
         <span aria-hidden className="absolute inset-x-0 bottom-0 h-px bg-[#2a0610]/25" />
 
         <svg

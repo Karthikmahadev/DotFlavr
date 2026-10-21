@@ -171,14 +171,18 @@ export default function CtaFooter() {
           .from(".js-cta-fade", { autoAlpha: 0, y: 18, duration: 0.9, stagger: 0.09 }, 0.2);
 
         // the stamp is the one thing that keeps moving
-        gsap.to(".js-stamp", {
-          rotation: 360,
-          duration: 26,
-          ease: "none",
-          repeat: -1,
-          transformOrigin: "50% 50%",
-        });
+      // Rotate the stamp only when it exists in the rendered DOM.
+const stamp = root.current?.querySelector(".js-stamp");
 
+if (stamp) {
+  gsap.to(stamp, {
+    rotation: 360,
+    duration: 26,
+    ease: "none",
+    repeat: -1,
+    transformOrigin: "50% 50%",
+  });
+}
         gsap.from(".js-footer", {
           yPercent: 8,
           autoAlpha: 0,

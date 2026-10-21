@@ -14,44 +14,24 @@ if (typeof window !== "undefined") {
 /* ───────────────────────── data ───────────────────────── */
 
 const PHASES = [
-  { num: "01", title: "Think", desc: "Problem framing, benchmark scoping, consumer organoleptics, and ingredient feasibility before touching laboratory glassware.", focus: "Market matrix & FSSAI bounds" },
-  { num: "02", title: "Discuss", desc: "Rigorous peer and scientist critique. Deconstruct formulation hurdles, regulatory boundaries (FSSAI/FDA), and unit COGS reality checks.", focus: "COGS, claims & preservatives" },
-  { num: "03", title: "Build", desc: "Physical benchtop prototyping. Fine-tune water activity (aw), pH equilibrium, humectant binding, texture profile, and thermal pilot trials.", focus: "45-day accelerated stability" },
-  { num: "04", title: "Present", desc: "Structured sensory evaluation panels, commercial batch documentation dossiers, and handover to industrial contract manufacturers.", focus: "Co-packer spec sheet delivery" },
+  { num: "01", title: "Think", desc: "Identify food product opportunities, understand consumer needs and assess feasibility.", focus: "Market matrix & FSSAI bounds" },
+  { num: "02", title: "Discuss", desc: "Exchange ideas, challenge assumptions and explore technical and commercial considerations.", focus: "COGS, claims & preservatives" },
+  { num: "03", title: "Build", desc: "Develop prototypes, conduct trials and evaluate product quality through hands-on experimentation.", focus: "Bench stability & trials" },
+  { num: "04", title: "Present", desc: "Present outcomes, document learnings and communicate product concepts with industry context.", focus: "Documentation & handover" },
 ];
 
 const COHORTS = [
-  { tag: "Cohort 01", category: "Academia to lab", title: "Students & Food Science Graduates", desc: "Move beyond academic theory into applied benchtop science. Master industry tools, sensory panels, food rheology, and complete pilot dossier formulation to create a portfolio that hiring food companies fight over.", highlight: "Real benchtop trials • Dossier formulation" },
-  { tag: "Cohort 02", category: "Professional upscale", title: "Early & Mid-Career Food Technologists", desc: "Upskill in modern clean-label replacement strategies, retort and hot-fill thermodynamics, packaging barrier migration checks, and co-packer plant scaling protocols.", highlight: "Clean-label hydrocolloids • Retort mastery" },
-  { tag: "Cohort 03", category: "Founders & operators", title: "Food Entrepreneurs & D2C Founders", desc: "Translate kitchen recipes into commercial formulations with validated 6–12 month shelf-life, certified FSSAI nutritional labeling, and unit-economic viable COGS that scale smoothly.", highlight: "Zero-spoilage engineering • Pilot run readiness" },
-  { tag: "Cohort 04", category: "Colleges & institutes", title: "Colleges & Academic Institutions", desc: "Complement existing curricula with pragmatic industry casework, formulation challenges, live pilot runs, and guest masterclasses from seasoned food R&D directors.", highlight: "Hands-on module integration • Faculty immersion" },
-];
-
-const SPECS_1 = [
-  ["Duration", "1 month hybrid"],
-  ["Workshops", "6 live masterclasses"],
-  ["Practical lab", "2 bench sprints"],
-  ["Batch size", "Strictly 8–10 seats"],
-  ["All-inclusive fee", "₹2,500"],
-  ["Credential", "Dot Flavr certificate"],
-];
-
-const KIT = [
-  ["Trial ingredient kit", "shipped to your doorstep with standardised benchmark ingredients."],
-  ["Digital formulation dossier", "Brix/pH balancing sheets, aw calculators and COGS formulas."],
-  ["Direct feedback", "from Dot Flavr food technologists on your formulation sample submissions."],
-];
-
-const MILESTONES = [
-  { wk: "Week 1–2", t: "Raw sourcing & benchtop feasibility", d: "Active ingredient chemistry, moisture profiling, and raw supplier vetting." },
-  { wk: "Week 3–4", t: "Stabilisation & sensory panels", d: "Thermal death curves, humectants, water activity (aw < 0.65 thresholding), and clean binding." },
-  { wk: "Week 5–6", t: "Factory pilot run handover", d: "Machine clearance, line yield calculation, and full FSSAI/COGS dossier sign-off." },
+  { tag: "Cohort 01", category: "Practical learning", title: "Students & Graduates", desc: "Build practical skills through food product development, hands-on trials and industry-oriented learning.", highlight: "Practical learning • Product development" },
+  { tag: "Cohort 02", category: "Technical upskilling", title: "Food Professionals", desc: "Strengthen skills in formulation, product quality, shelf-life assessment and process improvement.", highlight: "Technical upskilling • Applied food science" },
+  { tag: "Cohort 03", category: "Commercial readiness", title: "Food Entrepreneurs & Founders", desc: "Turn food ideas into viable products through formulation support, product trials and scale-up guidance.", highlight: "Product development • Commercial readiness" },
+  { tag: "Cohort 04", category: "Academic collaboration", title: "Colleges & Institutions", desc: "Connect classroom learning with practical projects, expert-led sessions and industry-relevant challenges.", highlight: "Academic collaboration • Industry engagement" },
 ];
 
 const AUDIENCES = [
-  { title: "For Universities & Colleges", desc: "Semester-long applied formulation modules, benchtop immersion workshops, and student placement pipelines." },
-  { title: "For Ingredient Manufacturers", desc: "Feature your novel hydrocolloids, botanical extracts, or clean fibres in active student and founder formulation batches." },
-  { title: "For Co-Packers & Processors", desc: "Receive standardised, line-validated pilot batches that run with zero line jams or separation issues." },
+  { title: "Universities & Colleges", desc: "Exploring opportunities for student learning, hands-on experiences, and industry interaction." },
+  { title: "Restaurants, Cafés & Cloud Kitchens", desc: "Exploring recipe ideas, flavour combinations, menu concepts, and new food possibilities." },
+  { title: "Food Startups & Emerging Brands", desc: "Exchanging ideas around product concepts, formulation, and food innovation." },
+  { title: "Aspiring Founders", desc: "Have a food idea you’ve been thinking about? Let’s explore possibilities and see where it could lead." },
 ];
 
 /* ───────────────────────── small pieces ───────────────────────── */
@@ -66,33 +46,6 @@ function Label({ children, dark = false }: { children: React.ReactNode; dark?: b
       <span className="h-1.5 w-1.5 rounded-full bg-[#ff6f3c]" />
       {children}
     </p>
-  );
-}
-
-function Tick() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff6f3c" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="mt-1 shrink-0">
-      <path d="M3 13.5 9 19 21 4.5" />
-    </svg>
-  );
-}
-
-function Stamp({ id, text, className = "" }: { id: string; text: string; className?: string }) {
-  return (
-    <svg viewBox="0 0 200 200" className={className} aria-hidden>
-      <defs>
-        <path id={id} d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0" />
-      </defs>
-      <circle cx="100" cy="100" r="96" fill="#ff6f3c" />
-      <g className="js-stamp" style={{ transformOrigin: "100px 100px" }}>
-        <text fontSize="15" fontWeight="700" letterSpacing="3" fill="#fff9eb">
-          <textPath href={`#${id}`} textLength="470" lengthAdjust="spacing">
-            {text}
-          </textPath>
-        </text>
-      </g>
-      <circle cx="100" cy="100" r="8" fill="#fff9eb" />
-    </svg>
   );
 }
 
@@ -182,21 +135,6 @@ export default function FoodTablePage() {
             scrollTrigger: { trigger: ".js-phases", start: "top 90%", end: "bottom 50%", scrub: true },
           }
         );
-
-        // Timeline rail draws on programme 02.
-        gsap.fromTo(
-          ".js-rail",
-          { scaleY: 0 },
-          {
-            scaleY: 1,
-            transformOrigin: "top",
-            ease: "none",
-            scrollTrigger: { trigger: ".js-rail-wrap", start: "top 85%", end: "bottom 70%", scrub: true },
-          }
-        );
-
-        // Stamps turn slowly.
-        gsap.to(".js-stamp", { rotation: 360, duration: 24, ease: "none", repeat: -1 });
       });
 
       ScrollTrigger.refresh();
@@ -217,34 +155,32 @@ export default function FoodTablePage() {
 
           <h1 className="mt-8 font-serif text-[clamp(3rem,8.8vw,8.5rem)] font-normal leading-[0.9] tracking-[-0.04em]">
             <span className="block overflow-hidden py-[0.05em]">
-              <span className="js-h-line block">Where the food</span>
+              <span className="js-h-line block">Where food science</span>
             </span>
             <span className="block overflow-hidden py-[0.05em]">
               <span className="js-h-line block">
-                industry <em className="italic text-[#ff6f3c]">comes together.</em>
+                meets <em className="italic text-[#ff6f3c]">real-world practice.</em>
               </span>
             </span>
           </h1>
 
           <div className="mt-12 grid gap-10 lg:grid-cols-12">
             <p className="font-serif text-[clamp(1.15rem,1.6vw,1.5rem)] leading-[1.5] text-[#800020]/80 lg:col-span-7">
-              Bridging the gap between food science theory, benchtop craft, and commercial reality.
-              An open collaborative table for aspiring food technologists, product developers,
-              ambitious founders, and industry leaders.
+              A collaborative space for aspiring food technologists to learn, experiment and experience how food products are developed.
             </p>
             <div className="flex flex-col items-start gap-4 lg:col-span-5 lg:items-end lg:justify-end">
               <Link
                 href="#programmes"
                 className="group inline-flex h-12 items-center gap-2.5 rounded-full bg-[#800020] px-7 text-[13px] font-semibold text-[#fff9eb] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#ff6f3c] hover:shadow-lg"
               >
-                Explore programmes
+                Explore Programmes
                 <span aria-hidden className="transition-transform duration-300 group-hover:translate-y-0.5">&darr;</span>
               </Link>
               <Link
                 href="#collaborate"
                 className="text-[13px] font-medium text-[#800020] underline decoration-[#ff6f3c]/45 underline-offset-[6px] transition-colors hover:text-[#ff6f3c]"
               >
-                For colleges &amp; industry &rarr;
+                For students &middot; Colleges &middot; Industry &rarr;
               </Link>
             </div>
           </div>
@@ -292,15 +228,11 @@ export default function FoodTablePage() {
           <div className="max-w-3xl">
             <Label>01 / The context &amp; gap</Label>
             <h2 className="mt-4 font-serif text-[clamp(2.4rem,4.6vw,4.2rem)] font-normal leading-[1.05] tracking-[-0.03em]">
-              Bridging the gap between food science theory and{" "}
-              <em className="italic text-[#ff6f3c]">real-world commercial scale.</em>
+              From food science theory to{" "}
+              <em className="italic text-[#ff6f3c]">real-world practice.</em>
             </h2>
             <p className="mt-6 text-[15px] leading-[1.7] text-[#800020]/75 sm:text-[16px]">
-              Before products succeed on supermarket shelves or cold-chain distribution, they
-              encounter a silent failure zone. University programmes emphasise textbook equations
-              and Petri dishes; domestic kitchens produce delicious samples that separate inside
-              commercial retort autoclaves. The Food Table was established by Dot Flavr to replace
-              trial-and-error guesswork with industrial R&amp;D rigour.
+              Food science goes beyond textbooks. The Food Table brings students, emerging innovators and industry together to explore product development through practical learning, experimentation and real-world challenges.
             </p>
           </div>
 
@@ -346,8 +278,7 @@ export default function FoodTablePage() {
               </h2>
             </div>
             <p className="max-w-[22rem] text-[15px] leading-[1.65] text-[#800020]/75 md:pb-2">
-              Designed for those who want to turn conceptual culinary ideas into stable, safe, and
-              commercialisable packaged goods.
+              A shared space for students, food professionals, founders and institutions to learn, experiment and build better food products.
             </p>
           </div>
 
@@ -397,185 +328,80 @@ export default function FoodTablePage() {
         </div>
       </section>
 
-      {/* ──────────────── 4. PROGRAMME 01 ──────────────── */}
+      {/* ──────────────── 4. PROGRAMME 01 (OPEN BENCH / EXPLORE SERIES) ──────────────── */}
       <section id="programmes" className="px-6 py-16 md:px-12 lg:px-16">
-        <div className="relative mx-auto max-w-[1240px] rounded-3xl bg-[#f7eed9] p-4 shadow-xl ring-1 ring-[#800020]/15 sm:p-6 md:p-8">
-          <Stamp
-            id="stamp-p1"
-            text="LIMITED SEATS • 8–10 PER BATCH • LIMITED SEATS • 8–10 PER BATCH •"
-            className="absolute -top-9 right-6 z-10 h-24 w-24 sm:right-12 sm:h-28 sm:w-28"
-          />
-
-          <div className="rounded-2xl border border-dashed border-[#800020]/30 p-6 sm:p-10 md:p-12">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="rounded-3xl bg-[#590f1d] p-8 text-[#fff9eb] shadow-xl sm:p-12 md:p-16">
             <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
-              <div className="lg:col-span-7">
-                <Label>Programme 01 &bull; Foundational immersion</Label>
-                <h2 className="mt-4 font-serif text-[clamp(2.3rem,4.2vw,3.8rem)] font-normal leading-[1.05] tracking-[-0.03em]">
-                  Explore Series:
-                  <br />
-                  <em className="italic text-[#ff6f3c]">Food tech &amp; formulation</em> fundamentals
+              <div className="lg:col-span-8">
+                <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#ffb08a]">
+                  THE FOOD TABLE BY DOT FLAVR PRESENTS
+                </p>
+                <h2 className="mt-4 font-serif text-[clamp(2.8rem,5vw,4.5rem)] font-normal leading-[1.05] tracking-[-0.03em]">
+                  Open Bench.
                 </h2>
-                <p className="mt-6 max-w-xl text-[15px] leading-[1.7] text-[#800020]/80 sm:text-[16px]">
-                  An intensive one-month hybrid immersion designed to build solid muscle memory in
-                  recipe scale-up, water activity thresholds, clean-label binders, and sensory
-                  evaluation matrices.
+                <p className="mt-2 font-serif text-[clamp(1.6rem,2.5vw,2.4rem)] italic text-[#ffb08a]">
+                  What if we tried?
                 </p>
-
-                <dl className="mt-10 grid border-t border-[#800020]/20 sm:grid-cols-2">
-                  {SPECS_1.map(([k, v]) => (
-                    <div key={k} className="flex items-baseline justify-between gap-4 border-b border-[#800020]/20 py-3.5 sm:odd:pr-6 sm:even:pl-6 sm:even:border-l sm:even:border-[#800020]/20">
-                      <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#800020]/60">{k}</dt>
-                      <dd className="text-right font-serif text-[1.15rem] font-medium tracking-[-0.02em]">{v}</dd>
-                    </div>
-                  ))}
-                </dl>
-
-                <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-                  <Link
-                    href="/#contact"
-                    className="inline-flex h-12 items-center rounded-full bg-[#800020] px-7 text-[13px] font-semibold text-[#fff9eb] transition-all duration-300 hover:bg-[#ff6f3c]"
-                  >
-                    Apply for next cohort
-                  </Link>
-                  <Link
-                    href="/#contact"
-                    className="text-[13px] font-medium text-[#800020] underline decoration-[#ff6f3c]/45 underline-offset-[6px] hover:text-[#ff6f3c]"
-                  >
-                    View curriculum details &rarr;
-                  </Link>
-                </div>
-              </div>
-
-              <aside className="rounded-2xl bg-white p-7 shadow-md ring-1 ring-[#800020]/15 sm:p-8 lg:col-span-5">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff6f3c]">Next cohort</p>
-                    <p className="mt-1 font-serif text-[1.35rem] font-medium leading-tight tracking-[-0.02em]">
-                      Starting the first Saturday of the month
-                    </p>
-                  </div>
-                  <span className="mt-1.5 h-2.5 w-2.5 shrink-0 animate-pulse rounded-full bg-emerald-500" />
-                </div>
-
-                <p className="mt-7 font-serif text-[1.05rem] italic text-[#800020]/65">In the kit</p>
-                <ul className="mt-3 divide-y divide-[#800020]/15 border-y border-[#800020]/15">
-                  {KIT.map(([b, rest]) => (
-                    <li key={b} className="flex gap-3 py-4 text-[14px] leading-[1.6] text-[#800020]/80">
-                      <Tick />
-                      <span>
-                        <strong className="font-semibold text-[#800020]">{b}:</strong> {rest}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <p className="mt-5 flex flex-wrap items-center justify-between gap-2 text-[13px] text-[#800020]/75">
-                  Scholarships available for students
-                  <Link href="/#contact" className="font-semibold text-[#800020] underline decoration-[#ff6f3c] underline-offset-4 hover:text-[#ff6f3c]">
-                    Inquire here
-                  </Link>
+                <p className="mt-6 max-w-2xl text-[16px] leading-[1.7] text-[#fff9eb]/85 sm:text-[17px]">
+                  A space where questions meet ingredients, ideas become experiments, and learning happens by doing.
                 </p>
-              </aside>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ──────────────── 5. PROGRAMME 02 ──────────────── */}
-      <section className="px-6 py-16 md:px-12 lg:px-16">
-        <div className="mx-auto max-w-[1240px] rounded-3xl bg-[#800020] p-8 text-[#fff9eb] shadow-2xl sm:p-12 md:p-16">
-          <div className="grid items-start gap-14 lg:grid-cols-12 lg:gap-16">
-            <div className="lg:col-span-7">
-              <Label dark>Programme 02 &bull; Intensive benchtop fellowship</Label>
-              <p className="mt-5 inline-block rounded-full bg-white/10 px-3.5 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[#ffb08a]">
-                Strictly 2–4 fellows per track
-              </p>
-
-              <h2 className="mt-5 font-serif text-[clamp(2.4rem,4.6vw,4.2rem)] font-normal leading-[1.05] tracking-[-0.03em]">
-                Industry immersion:
-                <br />
-                <em className="italic text-[#ff6f3c]">commercial product development</em>
-              </h2>
-
-              <p className="mt-6 max-w-xl text-[15px] leading-[1.7] text-[#fff9eb]/80 sm:text-[16px]">
-                A hands-on, high-intensity laboratory fellowship. Co-develop an actual commercial SKU
-                under Dot Flavr&rsquo;s R&amp;D directors, from bench chemistry and water activity
-                testing to pilot runs on industrial retort and extrusion machinery.
-              </p>
-
-              <div className="mt-10 grid items-end gap-8 border-y border-[#fff9eb]/20 py-8 sm:grid-cols-[1fr_auto]">
-                <div className="grid grid-cols-2 gap-6">
-                  <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#fff9eb]/60">Intensive duration</p>
-                    <p className="mt-1 font-serif text-[1.25rem] font-medium tracking-[-0.02em]">45 days applied</p>
-                  </div>
-                  <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#fff9eb]/60">Cohort capacity</p>
-                    <p className="mt-1 font-serif text-[1.25rem] font-medium tracking-[-0.02em]">2–4 fellows max</p>
-                  </div>
-                </div>
-                <div className="sm:text-right">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#fff9eb]/60">Programme fee</p>
-                  <p className="font-serif text-[clamp(2.8rem,4.8vw,4.4rem)] font-normal leading-none tracking-[-0.04em] text-[#ff6f3c]">
-                    ₹7,500
+                <div className="mt-10 border-t border-[#fff9eb]/20 pt-8">
+                  <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-[#ffb08a]">
+                    THINK &bull; TINKER &bull; TRY
+                  </p>
+                  <p className="mt-3 font-serif text-[1.35rem] italic text-[#fff9eb]/90">
+                    COMING SOON
                   </p>
                 </div>
               </div>
-
-              <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-7">
-                <Link
-                  href="/#contact"
-                  className="inline-flex h-12 items-center rounded-full bg-[#ff6f3c] px-7 text-[13px] font-semibold text-white shadow-md transition-all duration-300 hover:bg-[#ff8559]"
-                >
-                  Submit application dossier
-                </Link>
-                <span className="font-serif text-[1.05rem] italic text-[#fff9eb]/70">
-                  Selection by screening &amp; portfolio interview
-                </span>
-              </div>
             </div>
-
-            <aside className="lg:col-span-5">
-              <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#ffb08a]">Fellowship milestones</p>
-
-              <div className="js-rail-wrap relative mt-7 pl-9">
-                <span aria-hidden className="absolute bottom-2 left-[7px] top-2 w-px bg-[#fff9eb]/20" />
-                <span aria-hidden className="js-rail absolute bottom-2 left-[7px] top-2 w-px bg-[#ff6f3c]" />
-
-                <ol className="space-y-10">
-                  {MILESTONES.map((m) => (
-                    <li key={m.wk} className="relative">
-                      <span aria-hidden className="absolute -left-9 top-1 h-[15px] w-[15px] rounded-full border-2 border-[#ff6f3c] bg-[#800020]" />
-                      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff6f3c]">{m.wk}</p>
-                      <p className="mt-1.5 font-serif text-[1.3rem] font-normal leading-tight tracking-[-0.02em]">{m.t}</p>
-                      <p className="mt-1.5 text-[14px] leading-[1.6] text-[#fff9eb]/75">{m.d}</p>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-
-              <p className="mt-10 flex items-center justify-between gap-4 border-t border-[#fff9eb]/20 pt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-[#ffb08a]">
-                <span>Outcome: market-ready SKU</span>
-                <span>100% IP protected</span>
-              </p>
-            </aside>
           </div>
         </div>
       </section>
 
-      {/* ──────────────── 6. COLLABORATION ──────────────── */}
+      {/* ──────────────── 5. PROGRAMME 02 (BEYOND THE BENCH / INDUSTRY IMMERSION) ──────────────── */}
+      <section className="px-6 py-16 md:px-12 lg:px-16">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="rounded-3xl bg-[#800020] p-8 text-[#fff9eb] shadow-2xl sm:p-12 md:p-16">
+            <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
+              <div className="lg:col-span-8">
+                <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#ffb08a]">
+                  THE FOOD TABLE BY DOT FLAVR PRESENTS
+                </p>
+                <h2 className="mt-4 font-serif text-[clamp(2.8rem,5vw,4.5rem)] font-normal leading-[1.05] tracking-[-0.03em]">
+                  Beyond the Bench.
+                </h2>
+                <p className="mt-2 font-serif text-[clamp(1.6rem,2.5vw,2.4rem)] italic text-[#ffb08a]">
+                  From food science to food products.
+                </p>
+                <p className="mt-6 max-w-2xl text-[16px] leading-[1.7] text-[#fff9eb]/85 sm:text-[17px]">
+                  A hands-on industry immersion experience exploring ingredient functionality, formulation, product testing, and the journey from an initial concept to a developed food product.
+                </p>
+                <div className="mt-10 border-t border-[#fff9eb]/20 pt-8">
+                  <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-[#ffb08a]">
+                    EXPLORE &bull; DEVELOP &bull; REFINE
+                  </p>
+                  <p className="mt-3 font-serif text-[1.35rem] italic text-[#fff9eb]/90">
+                    PROGRAMME DETAILS COMING SOON
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ──────────────── 6. COLLABORATION (UPDATED CONTENT) ──────────────── */}
       <section id="collaborate" className="mt-16 border-t border-[#800020]/15 px-6 py-24 md:px-12 md:py-32 lg:px-16">
         <div className="mx-auto grid max-w-[1240px] items-start gap-14 lg:grid-cols-12 lg:gap-20">
           <div className="lg:col-span-6 lg:sticky lg:top-28">
             <Label>03 / Collaboration</Label>
             <h2 className="mt-4 font-serif text-[clamp(2.6rem,4.8vw,4.4rem)] font-normal leading-[1.05] tracking-[-0.03em]">
-              Let&rsquo;s create more <em className="italic text-[#ff6f3c]">meaningful industry experiences.</em>
+              Let’s explore what we can <em className="italic text-[#ff6f3c]">create together.</em>
             </h2>
             <p className="mt-6 text-[15px] leading-[1.7] text-[#800020]/75 sm:text-[16px]">
-              Are you an ingredient supplier seeking application development? A university dean
-              looking to bridge academia with actual commercial benchwork? Or a co-packer searching
-              for trial-tested client formulations? We actively co-design custom learning modules,
-              factory tours, and sponsored innovation briefs.
+              We’re open to connecting with people who share an interest in food, flavour, and new ideas.
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
@@ -583,7 +409,7 @@ export default function FoodTablePage() {
                 href="/#contact"
                 className="group inline-flex h-12 items-center gap-3 rounded-full bg-[#800020] px-7 text-[13px] font-semibold text-[#fff9eb] transition-all duration-300 hover:bg-[#ff6f3c]"
               >
-                Partner with us
+                Let’s connect
                 <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
               </Link>
               <a
